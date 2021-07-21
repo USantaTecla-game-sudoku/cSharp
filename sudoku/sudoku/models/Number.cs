@@ -1,5 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Reflection;
+using usantatecla.utils;
 
 namespace usantatecla.sudoku.models
 {
@@ -35,4 +38,26 @@ namespace usantatecla.sudoku.models
 		NINE,
 	}
 
+	public static class NumberExtensions {
+
+        private static int VALUE_ZERO_ASCII = 48;
+
+        public static Number ToNumber(this int value){
+            return EnumExtension.GetValueFromDescription<Number>("" + value);
+        }
+
+        public static void Display(this Number number){
+            ColorConsole.Instance().Write(number.GetDescription(), ConsoleColor.Cyan);
+        }
+
+        public static Number? ToNumber(this string assignment){
+            if(assignment[2] == '-'){
+                return Number.EMPTY;
+            }
+            if(assignment[2] == '+' && Char.IsDigit(assignment[3])){
+                return ((int)Char.GetNumericValue(assignment[3])).ToNumber();
+            }
+            return null;
+        }
+    }
 }

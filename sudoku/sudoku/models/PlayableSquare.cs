@@ -2,12 +2,14 @@
 
 namespace usantatecla.sudoku.models
 {
-	public class PlayableSquare : Square 
+	public class PlayableSquare : Square
 	{
 		public PlayableSquare() : base(Number.EMPTY) { }
 
+		public PlayableSquare(Number number) : base(number) { }
+
 		public override bool CanAssign() => true;
-		public override bool IsEmpty() => this.Number == Number.EMPTY;
+		public override bool IsEmpty() => Number.EMPTY.Equals(this.Number);
 		public override ConsoleColor GetColor() => ConsoleColor.White;
 	}
 }

@@ -27,9 +27,13 @@ namespace usantatecla.utils
             return result;
         }
 
-
         public void Write(string message) {
             this.Write(message, ConsoleColor.White);
+        }
+
+        public void WriteLine()
+        {
+            Console.WriteLine();
         }
 
         public void WriteLine(string message)
@@ -37,19 +41,16 @@ namespace usantatecla.utils
             this.WriteLine(message, ConsoleColor.White);
         }
 
-
         public void Write(string message, ConsoleColor color)
         {
             Console.ForegroundColor = color;
             Console.Write(message);
-            Console.ForegroundColor = ConsoleColor.White;
         }
 
         public void WriteLine(string message, ConsoleColor color)
         {
             Console.ForegroundColor = color;
             Console.WriteLine(message);
-            Console.ForegroundColor = ConsoleColor.White;
         }
 
     }

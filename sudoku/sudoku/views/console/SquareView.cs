@@ -1,5 +1,6 @@
 using System;
 using usantatecla.sudoku.models;
+using usantatecla.utils;
 
 namespace usantatecla.sudoku.views.console
 {
@@ -13,8 +14,7 @@ namespace usantatecla.sudoku.views.console
 
 
         public void Display() {
-
+            ColorConsole.Instance().Write(_square.ToString(), _square.GetColor());
         }
     }
 }
- 

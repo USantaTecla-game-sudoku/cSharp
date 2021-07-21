@@ -1,4 +1,5 @@
 ﻿using System;
+using usantatecla.utils;
 
 namespace usantatecla.sudoku.models
 {
@@ -11,6 +12,10 @@ namespace usantatecla.sudoku.models
             this.Number = number;
         }
 
+        public override string ToString()
+        {
+            return this.Number.GetDescription();
+        }
         public abstract bool CanAssign();
         public abstract bool IsEmpty();
         public abstract ConsoleColor GetColor();
