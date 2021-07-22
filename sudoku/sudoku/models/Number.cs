@@ -40,14 +40,8 @@ namespace usantatecla.sudoku.models
 
 	public static class NumberExtensions {
 
-        private static int VALUE_ZERO_ASCII = 48;
-
         public static Number ToNumber(this int value){
-            return EnumExtension.GetValueFromDescription<Number>("" + value);
-        }
-
-        public static void Display(this Number number){
-            ColorConsole.Instance().Write(number.GetDescription(), ConsoleColor.Cyan);
+            return (Number)Enum.Parse(typeof(Number), "" + value);
         }
 
         public static Number? ToNumber(this string assignment){
@@ -55,9 +49,16 @@ namespace usantatecla.sudoku.models
                 return Number.EMPTY;
             }
             if(assignment[2] == '+' && Char.IsDigit(assignment[3])){
-                return ((int)Char.GetNumericValue(assignment[3])).ToNumber();
+                return assignment[3].ToNumber();
             }
             return null;
         }
+
+		public static Number ToNumber(this char value){
+			if(value == '.'){
+				return Number.EMPTY;
+			}
+			return ((int)Char.GetNumericValue(value)).ToNumber();
+		}
     }
 }

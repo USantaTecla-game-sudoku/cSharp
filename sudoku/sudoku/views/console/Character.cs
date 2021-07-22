@@ -14,12 +14,4 @@ namespace usantatecla.sudoku.views.console
         SIMPLE_VERTICAL_BAR,
     }
 
-    public static class CharacterExtensions {
-
-        public static void Display(this Character character){
-            ColorConsole.Instance().Write(character.GetDescription(), System.ConsoleColor.Cyan);
-        }
-
-    }
-
 }

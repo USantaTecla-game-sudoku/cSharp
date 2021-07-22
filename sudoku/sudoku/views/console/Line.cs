@@ -16,12 +16,4 @@ namespace usantatecla.sudoku.views.console
         HORIZONTAL_LETTER,
     }
 
-    public static class LineExtensions {
-
-        public static void Display(this Line line){
-            ColorConsole.Instance().WriteLine(line.GetDescription(), System.ConsoleColor.Cyan);
-        }
-
-    }
-
 }

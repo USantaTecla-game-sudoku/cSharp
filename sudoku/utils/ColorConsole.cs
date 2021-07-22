@@ -31,7 +31,7 @@ namespace usantatecla.utils
             this.Write(message, ConsoleColor.White);
         }
 
-        public void WriteLine()
+        public void NewLine()
         {
             Console.WriteLine();
         }

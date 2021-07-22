@@ -5,69 +5,53 @@ using usantatecla.sudoku.models;
 
 namespace usantatecla.sudoku.views.console {
 
-    public class BoardViewTest {
+    public class BoardViewTest : ConsoleViewTest{
 
         [Test]
         public void GivenMatrixSquares_WhenDisplay_ThenWriteConsole(){
-            var output = new StringWriter();
-            System.Console.SetOut(output);
 
-            var result = new StringWriter();
-            result.Write(output.ToString());
-
-            Square[][] rows = new Square[9][];
-            for(int i = 0 ; i < 9 ; i++ ){
-                rows[i] = new Square[9]{
-                    new PlayableSquare(),
-                    new PlayableSquare(),
-                    new PlayableSquare(),
-                    new PlayableSquare(),
-                    new PlayableSquare(),
-                    new PlayableSquare(),
-                    new PlayableSquare(),
-                    new PlayableSquare(),
-                    new PlayableSquare()
-                };
-            }
-            rows[3] = new Square[9]{
-                new PlayableSquare(Number.THREE),
-                new PlayableSquare(Number.FOUR),
-                new PlayableSquare(Number.FIVE),
-                new HintSquare(Number.TWO),
-                new PlayableSquare(Number.EIGHT),
-                new PlayableSquare(Number.SIX),
-                new PlayableSquare(Number.ONE),
-                new HintSquare(Number.SEVEN),
-                new HintSquare(Number.NINE)
-            };
-
-            BoardView view = new BoardView(rows);
+            Board board = new Board();
+            board.Load(CreateStringTemplate());
+            BoardView view = new BoardView(board.GetBoard());
             view.Display();
 
+            CreateManualBoard();
+            Assert.AreEqual(output.ToString(), result.ToString());
+        }
+
+        public string CreateStringTemplate(){
+            return  "53..7...." +
+                    "6..195..." +
+                    ".98....6." +
+                    "8...6...3" +
+                    "4..8.3..1" +
+                    "7...2...6" +
+                    ".6....28." +
+                    "...419..5" +
+                    "....8..79";
+        }
+
+        public void CreateManualBoard(){
             result.WriteLine("   ╔═══════════╦═══════════╦═══════════╗");
-            result.WriteLine(" 9 ║   |   |   ║   |   |   ║   |   |   ║");
+            result.WriteLine(" 9 ║ 5 | 3 |   ║   | 7 |   ║   |   |   ║");
             result.WriteLine("   ║───|───|───║───|───|───║───|───|───║");
-            result.WriteLine(" 8 ║   |   |   ║   |   |   ║   |   |   ║");
+            result.WriteLine(" 8 ║ 6 |   |   ║ 1 | 9 | 5 ║   |   |   ║");
             result.WriteLine("   ║───|───|───║───|───|───║───|───|───║");
-            result.WriteLine(" 7 ║   |   |   ║   |   |   ║   |   |   ║");
+            result.WriteLine(" 7 ║   | 9 | 8 ║   |   |   ║   | 6 |   ║");
             result.WriteLine("   ╠═══════════╬═══════════╬═══════════╣");
-            result.WriteLine(" 6 ║   |   |   ║   |   |   ║   |   |   ║");
+            result.WriteLine(" 6 ║ 8 |   |   ║   | 6 |   ║   |   | 3 ║");
             result.WriteLine("   ║───|───|───║───|───|───║───|───|───║");
-            result.WriteLine(" 5 ║   |   |   ║   |   |   ║   |   |   ║");
+            result.WriteLine(" 5 ║ 4 |   |   ║ 8 |   | 3 ║   |   | 1 ║");
             result.WriteLine("   ║───|───|───║───|───|───║───|───|───║");
-            result.WriteLine(" 4 ║ 3 | 4 | 5 ║ 2 | 8 | 6 ║ 1 | 7 | 9 ║");
+            result.WriteLine(" 4 ║ 7 |   |   ║   | 2 |   ║   |   | 6 ║");
             result.WriteLine("   ╠═══════════╬═══════════╬═══════════╣");
-            result.WriteLine(" 3 ║   |   |   ║   |   |   ║   |   |   ║");
+            result.WriteLine(" 3 ║   | 6 |   ║   |   |   ║ 2 | 8 |   ║");
             result.WriteLine("   ║───|───|───║───|───|───║───|───|───║");
-            result.WriteLine(" 2 ║   |   |   ║   |   |   ║   |   |   ║");
+            result.WriteLine(" 2 ║   |   |   ║ 4 | 1 | 9 ║   |   | 5 ║");
             result.WriteLine("   ║───|───|───║───|───|───║───|───|───║");
-            result.WriteLine(" 1 ║   |   |   ║   |   |   ║   |   |   ║");
+            result.WriteLine(" 1 ║   |   |   ║   | 8 |   ║   | 7 | 9 ║");
             result.WriteLine("   ╚═══════════╩═══════════╩═══════════╝");
             result.WriteLine("     A   B   C   D   E   F   G   H   I  ");
-            Assert.AreEqual(output.ToString(), result.ToString());
-
-            output.Flush();
-            output.Close();
         }
     }
 }

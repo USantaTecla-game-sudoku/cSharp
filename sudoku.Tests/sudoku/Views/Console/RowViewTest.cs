@@ -7,16 +7,10 @@ using usantatecla.sudoku.views;
 
 namespace usantatecla.sudoku.views.console {
 
-    public class RowViewTest {
+    public class RowViewTest : ConsoleViewTest{
 
         [Test]
         public void GivenArraySquares_WhenDisplay_ThenWriteConsole(){
-            var output = new StringWriter();
-            System.Console.SetOut(output);
-
-            var result = new StringWriter();
-            result.Write(output.ToString());
-
             Square[] squares = new Square[9]{
                 new HintSquare(Number.ONE),
                 new PlayableSquare(Number.FIVE),
@@ -34,9 +28,6 @@ namespace usantatecla.sudoku.views.console {
 
             result.WriteLine(" 1 ║ 1 | 5 | 8 ║ 4 | 9 |   ║ 7 | 2 | 3 ║");
             Assert.AreEqual(output.ToString(), result.ToString());
-
-            output.Flush();
-            output.Close();
         }
     }
 }

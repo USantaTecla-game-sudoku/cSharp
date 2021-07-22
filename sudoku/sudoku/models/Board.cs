@@ -7,15 +7,34 @@ namespace usantatecla.sudoku.models
 
 		public static int SIZE = 9;
 
-		private Square[,] _squares;
+		private Square[][] _squares;
 
         public Board()
         {
-			this._squares = new Square[SIZE, SIZE];
+			this._squares = new Square[SIZE][];
 		}
 
-		public void Load(string sudoku) { 
-			
+		public void Load(string sudoku) {
+			string[] rows = sudoku.Split(";");
+			for(int i = 0 ; i < SIZE ; i++){
+				int row = (SIZE) - (i + 1);
+				this._squares[row] = GetRow(sudoku.Substring((i * SIZE), SIZE));
+			}
+		}
+
+		private Square[] GetRow(string line){
+			Square[] row = new Square[SIZE];
+			for(int j = 0 ; j < line.Length ; j++ ){
+				row[j] = GetSquare(line[j].ToNumber());
+			}
+			return row;
+		}
+
+		private Square GetSquare(Number number){
+			if(Number.EMPTY.Equals(number)){
+				return new PlayableSquare();
+			}
+			return new HintSquare(number);
 		}
 
 		public void Assign(Assignment assignment)
@@ -33,7 +52,7 @@ namespace usantatecla.sudoku.models
 			return false;
 		}
 
-		public Square[,] GetBoard() => this._squares;
+		public Square[][] GetBoard() => this._squares;
 
 		public SquareCollection GetRow(Assignment assignment) {
 			return new SquareCollection(NullArrayOfSquares());

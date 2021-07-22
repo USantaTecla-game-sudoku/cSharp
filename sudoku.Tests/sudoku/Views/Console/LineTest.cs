@@ -5,22 +5,14 @@ using usantatecla.utils;
 
 namespace usantatecla.sudoku.views.console {
 
-    public class LineTest {
+    public class LineTest : ConsoleViewTest {
 
         [Test]
-        public void GivenLine_WhenDisplay_ThenWriteConsole(){
-            var output = new StringWriter();
-            System.Console.SetOut(output);
+        public void GivenLine_WhenGetDescription_ThenWriteConsole(){
+            ColorConsole.Instance().WriteLine(Line.HORIZONTAL_FIRST.GetDescription());
 
-            var result = new StringWriter();
-            result.Write(output.ToString());
-
-            Line.HORIZONTAL_FIRST.Display();
-            result.WriteLine(Line.HORIZONTAL_FIRST.GetDescription());
+            result.WriteLine("   ╔═══════════╦═══════════╦═══════════╗");
             Assert.AreEqual(output.ToString(), result.ToString());
-
-            output.Flush();
-            output.Close();
         }
     }
 }

@@ -7,23 +7,14 @@ using usantatecla.utils;
 
 namespace usantatecla.sudoku.views.console {
 
-    public class CharacterTest {
+    public class CharacterTest : ConsoleViewTest{
 
         [Test]
-        public void GivenChar_WhenDisplay_ThenWriteConsole(){
-            var output = new StringWriter();
-            Console.SetOut(output);
+        public void GivenChar_WhenGetDescription_ThenWriteConsole(){
+            ColorConsole.Instance().Write(Character.DOUBLE_VERTICAL_BAR.GetDescription());
 
-            var result = new StringWriter();
-            result.Write(output.ToString());
-
-            Character.DOUBLE_VERTICAL_BAR.Display();
-
-            result.Write(Character.DOUBLE_VERTICAL_BAR.GetDescription());
+            result.Write("║");
             Assert.AreEqual(output.ToString(), result.ToString());
-
-            output.Flush();
-            output.Close();
         }
     }
 }

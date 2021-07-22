@@ -1,5 +1,6 @@
 using System;
 using usantatecla.sudoku.models;
+using usantatecla.utils;
 
 namespace usantatecla.sudoku.views.console
 {
@@ -15,30 +16,30 @@ namespace usantatecla.sudoku.views.console
         }
 
         public void Display(){
-            Character.WHITE_SPACE.Display();
-            this._rowNumber.ToNumber().Display();
-            Character.WHITE_SPACE.Display();
-            Character.DOUBLE_VERTICAL_BAR.Display();
+            utils.ColorConsole.Instance().Write(Character.WHITE_SPACE.GetDescription());
+            utils.ColorConsole.Instance().Write(this._rowNumber.ToString());
+            utils.ColorConsole.Instance().Write(Character.WHITE_SPACE.GetDescription());
+            utils.ColorConsole.Instance().Write(Character.DOUBLE_VERTICAL_BAR.GetDescription());
             for(int i = 0; i < this._boxDimension ; i++){
-                DisplayBox(i);
+                DisplayBoxRow(i);
             }
-            utils.ColorConsole.Instance().WriteLine();
+            utils.ColorConsole.Instance().NewLine();
         }
 
-        private void DisplayBox(int boxValue){
+        private void DisplayBoxRow(int boxValue){
             int columnNumber = boxValue * this._boxDimension;
             DisplaySquare(_squares[columnNumber++]);
-            Character.SIMPLE_VERTICAL_BAR.Display();
+            utils.ColorConsole.Instance().Write(Character.SIMPLE_VERTICAL_BAR.GetDescription());
             DisplaySquare(_squares[columnNumber++]);
-            Character.SIMPLE_VERTICAL_BAR.Display();
+            utils.ColorConsole.Instance().Write(Character.SIMPLE_VERTICAL_BAR.GetDescription());
             DisplaySquare(_squares[columnNumber++]);
-            Character.DOUBLE_VERTICAL_BAR.Display();
+            utils.ColorConsole.Instance().Write(Character.DOUBLE_VERTICAL_BAR.GetDescription());
         }
 
         private void DisplaySquare(Square square){
-            Character.WHITE_SPACE.Display();
+            utils.ColorConsole.Instance().Write(Character.WHITE_SPACE.GetDescription());
             new SquareView(square).Display();
-            Character.WHITE_SPACE.Display();
+            utils.ColorConsole.Instance().Write(Character.WHITE_SPACE.GetDescription());
         }
 
         public bool HaveToCloseTheBox(int i){

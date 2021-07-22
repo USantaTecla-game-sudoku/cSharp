@@ -1,5 +1,6 @@
 using System;
 using usantatecla.sudoku.models;
+using usantatecla.utils;
 
 namespace usantatecla.sudoku.views.console
 {
@@ -13,22 +14,23 @@ namespace usantatecla.sudoku.views.console
         }
 
         public void Display() {
-            Line.HORIZONTAL_FIRST.Display();
+            utils.ColorConsole.Instance().WriteLine(Line.HORIZONTAL_FIRST.GetDescription());
             for(int i = this._squares.Length - 1 ; i >= 0 ; i--){
                 new RowView(i+1, this._squares[i]).Display();
-                if(HaveToCloseTheBoard(i)){
-                    Line.HORIZONTAL_LAST.Display();
-                }else if(HaveToCloseTheBox(i)){
-                    Line.HORIZONTAL_DOUBLE.Display();
-                }else{
-                    Line.HORIZONTAL_SIMPLE.Display();
+                if(HaveToCloseRowBoard(i)){
+                    if(HaveToCloseTheBox(i)){
+                        utils.ColorConsole.Instance().WriteLine(Line.HORIZONTAL_DOUBLE.GetDescription());
+                    }else{
+                        utils.ColorConsole.Instance().WriteLine(Line.HORIZONTAL_SIMPLE.GetDescription());
+                    }
                 }
             }
-            Line.HORIZONTAL_LETTER.Display();
+            utils.ColorConsole.Instance().WriteLine(Line.HORIZONTAL_LAST.GetDescription());
+            utils.ColorConsole.Instance().WriteLine(Line.HORIZONTAL_LETTER.GetDescription());
         }
 
-        private bool HaveToCloseTheBoard(int i){
-            return i == 0;
+        private bool HaveToCloseRowBoard(int i){
+            return i > 0;
         }
 
         private bool HaveToCloseTheBox(int i){
