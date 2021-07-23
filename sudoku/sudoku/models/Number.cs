@@ -40,25 +40,30 @@ namespace usantatecla.sudoku.models
 
 	public static class NumberExtensions {
 
-        public static Number ToNumber(this int value){
-            return (Number)Enum.Parse(typeof(Number), "" + value);
+        public static Number? ToNumber(this int value){
+			object result;
+			if(Enum.TryParse(typeof(Number), "" + value, out result)){
+				return (Number)result;
+			}
+            return null;
         }
 
-        public static Number? ToNumber(this string assignment){
-            if(assignment[2] == '-'){
+        public static Number? ToNumber(this string value){
+            if(string.IsNullOrEmpty(value)){
                 return Number.EMPTY;
             }
-            if(assignment[2] == '+' && Char.IsDigit(assignment[3])){
-                return assignment[3].ToNumber();
-            }
-            return null;
+			try{
+				return EnumExtension.GetValueFromDescription<Number>(value);
+			}catch(ArgumentException){
+				return null;
+			}
         }
 
 		public static Number ToNumber(this char value){
 			if(value == '.'){
 				return Number.EMPTY;
 			}
-			return ((int)Char.GetNumericValue(value)).ToNumber();
+			return ((int)Char.GetNumericValue(value)).ToNumber().Value;
 		}
     }
 }

@@ -20,7 +20,7 @@ namespace usantatecla.sudoku.models
 			}
 		}
 
-		public virtual void Load(string sudoku) { 
+		public virtual void Load(string sudoku) {
 			for (int i=0; i<SIZE; i++){
 				for (int j=0; j<SIZE; j++){
 					int position = j + i*SIZE;
@@ -30,7 +30,7 @@ namespace usantatecla.sudoku.models
 					}
 					else {
 						_squares[SIZE-i-1][j] = new HintSquare(EnumExtension.GetValueFromDescription<Number>(value));
-					}				
+					}
 				}
 			}
 		}
@@ -38,7 +38,7 @@ namespace usantatecla.sudoku.models
 		public virtual void Assign(Assignment assignment)
 		{
 			PlayableSquare playableSquare = new PlayableSquare();
-			playableSquare.assing(assignment.Number);
+			playableSquare.Assign(assignment.Number);
 			_squares[assignment.Coordinate.Row][assignment.Coordinate.Column] = playableSquare;
 		}
 
@@ -47,8 +47,8 @@ namespace usantatecla.sudoku.models
 			SquareCollection SquareCollectionRow = this.GetRow(assignment);
 			SquareCollection SquareCollectionColum = this.GetColumn(assignment);
 			SquareCollection SquareCollectionBox = this.GetBox(assignment);
-			return  SquareCollectionRow.CanAssign(assignment.Number) && 
-					SquareCollectionColum.CanAssign(assignment.Number) && 
+			return  SquareCollectionRow.CanAssign(assignment.Number) &&
+					SquareCollectionColum.CanAssign(assignment.Number) &&
 					SquareCollectionBox.CanAssign(assignment.Number) &&
 					this._squares[assignment.Coordinate.Row-1][assignment.Coordinate.Column-1].CanAssign();
 		}

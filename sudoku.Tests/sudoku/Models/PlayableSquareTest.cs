@@ -32,7 +32,7 @@ namespace usantatecla.sudoku.models {
         [Test]
         public void GivenHintSquare_WhenAssing_ThenAssignCorrect(){
             var playableSquare = new PlayableSquare();
-            playableSquare.assing(Number.ONE);
+            playableSquare.Assign(Number.ONE);
             Assert.AreEqual(playableSquare.ToString(), "1");
         }
     }
