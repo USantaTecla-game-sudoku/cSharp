@@ -16,27 +16,31 @@ namespace usantatecla.sudoku.views.console
         public void Interact() {
             do {
                 new BoardView(this.playController.GetBoard()).Display();
-                Assignment assignment = null;
-                do {
-
-                    ConsoleAssignmentParser parser;
-                    do{
-
-                        parser = new ConsoleAssignmentParser(ColorConsole.Instance().Read(Message.ASSIGNMENT.GetDescription()));
-                        if(parser.HasError()){
-                            parser.DisplayError();
-                        }else{
-                            assignment = parser.Parse();
-                        }
-
-                    }while(assignment == null);
-
-                }while(!this.playController.CanAssign(assignment));
-
-                this.playController.Assign(assignment);
+                this.playController.Assign(GetAssignment());
             }while(!this.playController.HasSudoku());
             new BoardView(this.playController.GetBoard()).Display();
             ColorConsole.Instance().WriteLine(Message.WINNER.GetDescription());
+        }
+
+        public Assignment GetAssignment(){
+            Assignment assignment = null;
+
+            ConsoleAssignmentParser parser;
+            do{
+
+                parser = new ConsoleAssignmentParser(ColorConsole.Instance().Read(Message.ASSIGNMENT.GetDescription()));
+                if(parser.HasError()){
+                    parser.DisplayError();
+                }else{
+                    assignment = parser.Parse();
+                }
+
+                if(!this.playController.CanAssign(assignment)){
+                    assignment = null;
+                }
+
+            }while(assignment == null);
+            return assignment;
         }
     }
 }
