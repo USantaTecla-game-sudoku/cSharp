@@ -44,24 +44,27 @@ namespace usantatecla.sudoku.models
 
 		public virtual bool CanAssign(Assignment assignment)
 		{
+			if(assignment.Number.Equals(Number.EMPTY)){
+				return this._squares[assignment.Coordinate.Row][assignment.Coordinate.Column].CanAssign();
+			}
 			SquareCollection SquareCollectionRow = this.GetRow(assignment);
 			SquareCollection SquareCollectionColum = this.GetColumn(assignment);
 			SquareCollection SquareCollectionBox = this.GetBox(assignment);
 			return  SquareCollectionRow.CanAssign(assignment.Number) &&
 					SquareCollectionColum.CanAssign(assignment.Number) &&
 					SquareCollectionBox.CanAssign(assignment.Number) &&
-					this._squares[assignment.Coordinate.Row-1][assignment.Coordinate.Column-1].CanAssign();
+					this._squares[assignment.Coordinate.Row][assignment.Coordinate.Column].CanAssign();
 		}
 
 		private SquareCollection GetRow(Assignment assignment) {
-			return 	new SquareCollection(this._squares[assignment.Coordinate.Row-1]);
+			return 	new SquareCollection(this._squares[assignment.Coordinate.Row]);
 		}
 
 		private SquareCollection GetColumn(Assignment assignment)
 		{
 			Square[] squaresColum = new Square[SIZE];
 			for (int i=0; i<SIZE; i++)	{
-				squaresColum[i] = this._squares[i][assignment.Coordinate.Column-1];
+				squaresColum[i] = this._squares[i][assignment.Coordinate.Column];
 			}
 			return 	new SquareCollection(squaresColum);
 		}
@@ -69,8 +72,8 @@ namespace usantatecla.sudoku.models
 		private SquareCollection GetBox(Assignment assignment)
 		{
 			Square[] squaresBox = new Square[SIZE];
-			int initIndexRow = SIZE_BOX * ((assignment.Coordinate.Row-1) / SIZE_BOX);
-			int initIndexColumn = SIZE_BOX * ((assignment.Coordinate.Column-1) / SIZE_BOX);
+			int initIndexRow = SIZE_BOX * ((assignment.Coordinate.Row) / SIZE_BOX);
+			int initIndexColumn = SIZE_BOX * ((assignment.Coordinate.Column) / SIZE_BOX);
 			int index = 0;
 			for (int i=initIndexRow; i<initIndexRow+SIZE_BOX; i++)	{
 				for (int j=initIndexColumn; j<initIndexColumn+SIZE_BOX; j++) {

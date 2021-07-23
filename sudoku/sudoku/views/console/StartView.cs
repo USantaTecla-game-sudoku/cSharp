@@ -1,5 +1,6 @@
 using System;
 using usantatecla.sudoku.controllers;
+using usantatecla.utils;
 
 namespace usantatecla.sudoku.views.console
 {
@@ -12,7 +13,8 @@ namespace usantatecla.sudoku.views.console
         }
 
         public void Interact() {
-            Console.WriteLine("Hello Sudoku Console Start!");
+            ColorConsole.Instance().WriteLine(Message.START.GetDescription());
+            this.startController.Start();
         }
     }
 }

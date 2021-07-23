@@ -3,13 +3,13 @@ using System.ComponentModel;
 namespace usantatecla.sudoku.views
 {
     public enum Message {
-        [Description("")]
+        [Description("--- SUDOKU ---")]
         START,
-        [Description("")]
+        [Description("Select coordinate to assign: ")]
         ASSIGNMENT,
-        [Description("")]
+        [Description("You win!!! :-)")]
         WINNER,
-        [Description("")]
+        [Description("Do you want to continue? (y/n): ")]
         RESUME,
         [Description("Wrong square")]
         ERROR_COORDINATE,

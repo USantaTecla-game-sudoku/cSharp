@@ -88,8 +88,8 @@ namespace usantatecla.sudoku.models {
             Board board = GetBoard(CreateStringBoardIncomplete());
             Square[][] squares = board.GetBoard();
 
-            int row = 9;
-            int column = 2;
+            int row = 8;
+            int column = 1;
             Assert.IsFalse(board.CanAssign(new Assignment(new Coordinate(row, column), Number.EIGHT)));
         }
 
@@ -98,8 +98,8 @@ namespace usantatecla.sudoku.models {
             Board board = GetBoard(CreateStringBoardIncomplete());
             Square[][] squares = board.GetBoard();
 
-            int row = 1;
-            int column = 9;
+            int row = 0;
+            int column = 8;
             Assert.IsFalse(board.CanAssign(new Assignment(new Coordinate(row, column), Number.ONE)));
         }
 
@@ -108,8 +108,8 @@ namespace usantatecla.sudoku.models {
             Board board = GetBoard(CreateStringBoardIncomplete());
             Square[][] squares = board.GetBoard();
 
-            int row = 9;
-            int column = 2;
+            int row = 8;
+            int column = 1;
             Assert.IsFalse(board.CanAssign(new Assignment(new Coordinate(row, column), Number.TWO)));
         }
 
@@ -118,9 +118,10 @@ namespace usantatecla.sudoku.models {
             Board board = GetBoard(CreateStringBoardIncomplete());
             Square[][] squares = board.GetBoard();
 
-            int row = 9;
-            int column = 9;
+            int row = 8;
+            int column = 8;
             Assert.IsTrue(board.CanAssign(new Assignment(new Coordinate(row, column), Number.TWO)));
+            Assert.IsTrue(board.CanAssign(new Assignment(new Coordinate(row, column), Number.EMPTY)));
         }
 
         [Test]

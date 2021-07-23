@@ -1,5 +1,6 @@
 using System;
 using usantatecla.sudoku.controllers;
+using usantatecla.utils;
 
 namespace usantatecla.sudoku.views.console
 {
@@ -12,8 +13,19 @@ namespace usantatecla.sudoku.views.console
         }
 
         public bool Interact() {
-            Console.WriteLine("Hello Sudoku Console Resume!");
-            return false;
+            string result;
+            do{
+                result = ColorConsole.Instance().Read(Message.RESUME.GetDescription()).ToLower();
+            }while(IsInvalidReading(result));
+            return ReadingToBoolean(result);
+        }
+
+        private bool IsInvalidReading(string value){
+            return !("y".Equals(value) || "n".Equals(value));
+        }
+
+        private bool ReadingToBoolean(string value){
+            return "y".Equals(value);
         }
     }
 }

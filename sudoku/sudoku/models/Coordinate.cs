@@ -12,5 +12,10 @@ namespace usantatecla.sudoku.models
             this.Row = row;
             this.Column = column;
         }
+
+        public override string ToString()
+        {
+            return "(" + this.Column + "," + this.Row + ")";
+        }
 	}
 }
