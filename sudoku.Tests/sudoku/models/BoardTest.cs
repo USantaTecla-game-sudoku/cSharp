@@ -121,6 +121,16 @@ namespace usantatecla.sudoku.models {
             int row = 8;
             int column = 8;
             Assert.IsTrue(board.CanAssign(new Assignment(new Coordinate(row, column), Number.TWO)));
+        }
+
+        [Test]
+        public void GivenBoard_WhenCanAssignWithNumberEmpty_ThenCanAssing(){
+            Board board = GetBoard(CreateStringBoardIncomplete());
+            Square[][] squares = board.GetBoard();
+
+            int row = 8;
+            int column = 8;
+            Assert.IsTrue(board.CanAssign(new Assignment(new Coordinate(row, column), Number.TWO)));
             Assert.IsTrue(board.CanAssign(new Assignment(new Coordinate(row, column), Number.EMPTY)));
         }
 
