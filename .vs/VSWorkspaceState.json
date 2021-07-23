@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\sudoku",
+    "\\sudoku.Tests",
+    "\\sudoku.Tests\\sudoku",
+    "\\sudoku.Tests\\sudoku\\controllers",
+    "\\sudoku\\resources",
+    "\\sudoku\\sudoku",
+    "\\sudoku\\sudoku\\controllers",
+    "\\sudoku\\sudoku\\models"
+  ],
+  "SelectedNode": "\\sudoku.Tests\\sudoku\\controllers\\PlayControllerTest.cs",
+  "PreviewInSolutionExplorer": false
+}

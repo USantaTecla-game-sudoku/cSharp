@@ -11,7 +11,7 @@ namespace usantatecla.sudoku.models
 		public override bool CanAssign() => true;
 		public override bool IsEmpty() => Number.EMPTY.Equals(this.Number);
 		public override ConsoleColor GetColor() => ConsoleColor.White;
-		public void assing(Number number){
+		public void Assign(Number number){
 			this.Number = number;
 		}		
 	}

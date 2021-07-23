@@ -1,18 +1,47 @@
 using System;
+using System.IO;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace usantatecla.sudoku.controllers
 {
     public class RandomFileSudokuLoader : ISudokuLoader
     {
-        private const string FILENAME = "";
+        private const string RESOURCES_FOLDER = "Resources";
+        private const string FILE_NAME = "SudokuTemplates.txt";
+        private Random _random;
 
         public RandomFileSudokuLoader()
         {
+            this._random = new Random();
+        }
+
+        public string Load()
+        {
+            return ReadRandomTemplate();
+        }
+
+        public int GetTemplateCount() => ReadAllTemplates().Count();
+
+
+        private string ReadRandomTemplate()
+        {
+            var templates = ReadAllTemplates();
+            var randomLine = GetRandom(templates.Count());
+            return templates[randomLine];
+        }
+
+        private List<string> ReadAllTemplates()
+        {
+            var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, RESOURCES_FOLDER, FILE_NAME);
+            
+            return File.ReadLines(filePath)
+                .Where(line => !string.IsNullOrWhiteSpace(line))
+                .ToList();
 
         }
 
-        public string Load() { 
-            return "53..7....6..195....98....6.8...6...34..8.3..17...2...6.6....28....419..5....8..79";
-        }
+        private int GetRandom(int max) => _random.Next(max);
+ 
     }
 }

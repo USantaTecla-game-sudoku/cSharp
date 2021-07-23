@@ -19,7 +19,7 @@ namespace usantatecla.sudoku.models
 			}
 		}
 
-		public void Load(string sudoku) { 
+		public virtual void Load(string sudoku) { 
 			for (int i=0; i<SIZE; i++){
 				for (int j=0; j<SIZE; j++){
 					int position = j + i*SIZE;
@@ -34,14 +34,14 @@ namespace usantatecla.sudoku.models
 			}
 		}
 
-		public void Assign(Assignment assignment)
+		public virtual void Assign(Assignment assignment)
 		{
 			PlayableSquare playableSquare = new PlayableSquare();
-			playableSquare.assing(assignment.Number);
+			playableSquare.Assign(assignment.Number);
 			_squares[assignment.Coordinate.Row][assignment.Coordinate.Column] = playableSquare;
 		}
 
-		public bool CanAssign(Assignment assignment)
+		public virtual bool CanAssign(Assignment assignment)
 		{
 			SquareCollection SquareCollectionRow = this.GetRow(assignment);
 			SquareCollection SquareCollectionColum = this.GetColumn(assignment);
@@ -81,9 +81,9 @@ namespace usantatecla.sudoku.models
 			return 	new SquareCollection(squaresBox);
 		}
 
-		public Square[][] GetBoard() => this._squares;
+		public virtual Square[][] GetBoard() => this._squares;
 
-		public bool HasSudoku()
+		public virtual bool HasSudoku()
 		{
 			for (int i=0; i<SIZE; i++)	{
 				for (int j=0; j<SIZE; j++)	{
@@ -93,6 +93,8 @@ namespace usantatecla.sudoku.models
 				}
 			}
 			return true;
-		}		
+		}
+
 	}
+
 }
