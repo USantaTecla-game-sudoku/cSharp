@@ -50,7 +50,7 @@ namespace usantatecla.sudoku.models {
             board.Load(stringBoard);
             return board;
         }
-    
+
         private void checkRow(Square[][] squares, int row, string file) {
             Assert.IsTrue(checkSquare(squares[row][0], file.Substring(0, 1)));
             Assert.IsTrue(checkSquare(squares[row][1], file.Substring(1, 1)));
@@ -77,10 +77,10 @@ namespace usantatecla.sudoku.models {
             Board board = GetBoard(CreateStringBoardIncomplete());
             Square[][] squares = board.GetBoard();
 
-            int row = 1;
-            int column = 9;
+            int row = 0;
+            int column = 8;
             board.Assign(new Assignment(new Coordinate(row, column), Number.NINE));
-            Assert.IsTrue(checkSquare(squares[row-1][column-1], Number.NINE.GetDescription()));
+            Assert.IsTrue(checkSquare(squares[row][column], Number.NINE.GetDescription()));
         }
 
         [Test]
