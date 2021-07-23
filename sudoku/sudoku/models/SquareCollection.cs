@@ -1,4 +1,5 @@
 ﻿using System;
+using usantatecla.utils;
 
 namespace usantatecla.sudoku.models
 {
@@ -12,15 +13,26 @@ namespace usantatecla.sudoku.models
         }
 
         public bool CanAssign(Number number) {
-            return false;
+            foreach(Square square in this._squares)
+            {
+                if (square.ToString() == number.GetDescription()) {
+                    return false;
+                }
+            }
+            return true;
         }
 
         public bool IsNotCompleted() => !IsCompleted();
 
         public bool IsCompleted()
         {
-            return false;
+            foreach(Square square in this._squares)
+            {
+                if (square.IsEmpty()) {
+                    return false;
+                }
+            }            
+            return true;
         }
-
     }
 }
