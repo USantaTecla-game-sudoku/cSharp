@@ -11,6 +11,8 @@ namespace usantatecla.sudoku.views
         WINNER,
         [Description("Do you want to continue? (y/n): ")]
         RESUME,
+        [Description(" * Not a valid format. Add: A3+4, Delete: A3-")]
+        ERROR_FORMAT,
         [Description(" * Wrong square")]
         ERROR_COORDINATE,
         [Description(" * This square has a fixed value")]

@@ -15,12 +15,13 @@ namespace usantatecla.sudoku.views.console
         private string _number;
 
         public ConsoleAssignmentParser(string action) {
-            Debug.Assert(action.Length >= 3);
             this._action = action.ToUpper();
-            this._column = this._action[0];
-            this._row = this._action[1];
-            this._operator = this._action[2];
-            this._number = this._action.Substring(3);
+            if(action.Length >= 3){
+                this._column = this._action[0];
+                this._row = this._action[1];
+                this._operator = this._action[2];
+                this._number = this._action.Substring(3);
+            }
         }
 
         public Assignment Parse()
@@ -42,10 +43,15 @@ namespace usantatecla.sudoku.views.console
 
         public bool HasError()
         {
-            return HasInvalidColumn()
+            return HasFormatInvalid()
+                || HasInvalidColumn()
                 || HasInvalidRow()
                 || HasInvalidOperator()
                 || HasInvalidNumber();
+        }
+
+        private bool HasFormatInvalid(){
+            return this._action.Length < 3 || this._action.Length > 4;
         }
 
         private bool HasInvalidColumn(){
@@ -75,7 +81,9 @@ namespace usantatecla.sudoku.views.console
 
         public void DisplayError() {
             string message = "";
-            if(HasInvalidColumn() || HasInvalidRow()){
+            if(HasFormatInvalid()){
+                message = Message.ERROR_FORMAT.GetDescription();
+            }else if(HasInvalidColumn() || HasInvalidRow()){
                 message = Message.ERROR_COORDINATE.GetDescription();
             }else if(HasInvalidOperator()){
                 message = Message.ERROR_OPERATOR.GetDescription();
