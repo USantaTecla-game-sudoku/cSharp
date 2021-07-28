@@ -13,7 +13,7 @@ namespace usantatecla.sudoku.views.console
         }
 
         public void Interact() {
-            ColorConsole.Instance().WriteLine(Message.START.GetDescription());
+            Message.START.ConsoleDisplayLine();
             this.startController.Start();
         }
     }

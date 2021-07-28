@@ -6,28 +6,32 @@ namespace usantatecla.sudoku.models {
 
     public class HintSquareTest {
 
+        private Square _hintSquare;
+
+        [SetUp]
+        public void Setup()
+        {
+            this._hintSquare = new HintSquare(Number.ONE);
+        }
+
         [Test]
         public void GivenHintSquare_WhenCanAssign_ThenKO(){
-            var hintSquare = new HintSquare(Number.ONE);
-            Assert.IsFalse(hintSquare.CanAssign());
+            Assert.IsFalse(_hintSquare.CanAssign());
         }
 
         [Test]
         public void GivenHintSquare_WhenIsEmpty_ThenKO(){
-            var hintSquare = new HintSquare(Number.ONE);
-            Assert.IsFalse(hintSquare.IsEmpty());
+            Assert.IsFalse(_hintSquare.IsEmpty());
         }
 
         [Test]
         public void GivenHintSquare_WhenGetColor_ThenCyan(){
-            var hintSquare = new HintSquare(Number.ONE);
-            Assert.AreEqual(hintSquare.GetColor(), ConsoleColor.Cyan);
+            Assert.AreEqual(_hintSquare.GetColor(), ConsoleColor.Cyan);
         }
 
         [Test]
         public void GivenHintSquare_WhenToString_ThenStringCorrect(){
-            var hintSquare = new HintSquare(Number.ONE);
-            Assert.AreEqual(hintSquare.ToString(), "1");
+            Assert.AreEqual(_hintSquare.Number.GetDescription(), "1");
         }
     }
 }

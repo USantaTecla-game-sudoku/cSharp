@@ -3,29 +3,21 @@ using System.ComponentModel;
 namespace usantatecla.sudoku.views
 {
     public enum Message {
-        [Description("--- SUDOKU ---")]
+
+        [Description("\n   -------------- SUDOKU ---------------\n")]
         START,
-        [Description("Select coordinate to assign: ")]
+
+        [Description("\nSelect coordinate to assign: ")]
         ASSIGNMENT,
-        [Description("You win!!! :-)")]
+
+        [Description("\nYou win!!! :-)")]
         WINNER,
-        [Description("Do you want to continue? (y/n): ")]
+
+        [Description("\nDo you want to continue? (y/n): ")]
         RESUME,
-        [Description(" * Not a valid format. Add: A3+4, Delete: A3-")]
+
+        [Description("\n * Not a valid format:\n\tAssign: [A..I][1..9]+[1..9]\n\tRemove: [A..I][1..9]-")]
         ERROR_FORMAT,
-        [Description(" * Wrong square")]
-        ERROR_COORDINATE,
-        [Description(" * This square has a fixed value")]
-        ERROR_COORDINATE_HINT,
-        [Description(" * Not a valid number {1..9}")]
-        ERROR_NUMBER,
-        [Description(" * Not a valid operator {+ -}")]
-        ERROR_OPERATOR,
-        [Description(" * Number ? has already been assigned at this column.")]
-        ERROR_REPEAT_IN_COLUMN,
-        [Description(" * Number ? has already been assigned at this row.")]
-        ERROR_REPEAT_IN_ROW,
-        [Description(" * Number ? has already been assigned at this box.")]
-        ERROR_REPEAT_IN_BOX,
+
     }
 }

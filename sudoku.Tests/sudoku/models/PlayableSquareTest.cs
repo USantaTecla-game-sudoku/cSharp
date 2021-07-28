@@ -1,39 +1,46 @@
 using System;
 using NUnit.Framework;
+using usantatecla.utils;
 
 namespace usantatecla.sudoku.models {
 
     public class PlayableSquareTest {
 
+        private PlayableSquare _playableSquare;
+
+        [SetUp]
+        public void Setup()
+        {
+            this._playableSquare = new PlayableSquare();
+        }
+
         [Test]
         public void GivenHintSquare_WhenCanAssign_ThenOK(){
-            var playableSquare = new PlayableSquare(Number.ONE);
-            Assert.IsTrue(playableSquare.CanAssign());
+            _playableSquare = new PlayableSquare(Number.ONE);
+            Assert.IsTrue(_playableSquare.CanAssign());
         }
 
         [Test]
         public void GivenHintSquare_WhenIsEmptyWithEmpty_ThenOK(){
-            var playableSquare = new PlayableSquare();
-            Assert.IsTrue(playableSquare.IsEmpty());
+            Assert.IsTrue(_playableSquare.IsEmpty());
         }
 
         [Test]
         public void GivenHintSquare_WhenIsEmptyWithFill_ThenKO(){
-            var playableSquare = new PlayableSquare(Number.ONE);
-            Assert.IsFalse(playableSquare.IsEmpty());
+            _playableSquare = new PlayableSquare(Number.ONE);
+            Assert.IsFalse(_playableSquare.IsEmpty());
         }
 
         [Test]
         public void GivenHintSquare_WhenGetColor_ThenCyan(){
-            var playableSquare = new PlayableSquare(Number.ONE);
-            Assert.AreEqual(playableSquare.GetColor(), ConsoleColor.White);
+            _playableSquare = new PlayableSquare(Number.ONE);
+            Assert.AreEqual(_playableSquare.GetColor(), ConsoleColor.White);
         }
 
         [Test]
         public void GivenHintSquare_WhenAssing_ThenAssignCorrect(){
-            var playableSquare = new PlayableSquare();
-            playableSquare.Assign(Number.ONE);
-            Assert.AreEqual(playableSquare.ToString(), "1");
+            _playableSquare.Assign(Number.ONE);
+            Assert.AreEqual(_playableSquare.Number.GetDescription(), "1");
         }
     }
 }

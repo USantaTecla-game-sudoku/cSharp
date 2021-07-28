@@ -13,11 +13,11 @@ namespace usantatecla.sudoku.views.console
         }
 
         public bool Interact() {
-            string result;
+            string yesOrNot;
             do{
-                result = ColorConsole.Instance().Read(Message.RESUME.GetDescription()).ToLower();
-            }while(IsInvalidReading(result));
-            return ReadingToBoolean(result);
+                yesOrNot = ColorConsole.Instance().Read(Message.RESUME.GetDescription()).ToLower();
+            }while(IsInvalidReading(yesOrNot));
+            return ReadingToBoolean(yesOrNot);
         }
 
         private bool IsInvalidReading(string value){

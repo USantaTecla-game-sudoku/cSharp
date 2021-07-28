@@ -12,9 +12,9 @@ namespace usantatecla.sudoku.views.console
             this._square = square;
         }
 
-
         public void Display() {
-            ColorConsole.Instance().Write(_square.ToString(), _square.GetColor());
+            _square.Number.ConsoleDisplay(_square.GetColor());
         }
+
     }
 }

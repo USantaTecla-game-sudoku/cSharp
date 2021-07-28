@@ -10,8 +10,6 @@ namespace usantatecla.sudoku.controllers
             _startController = startController;
         }
 
-        public void Resume() {
-            _startController.Start();
-        }
+        public void Resume() => _startController.Start();
     }
 }

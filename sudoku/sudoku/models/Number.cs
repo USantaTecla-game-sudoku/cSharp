@@ -38,32 +38,14 @@ namespace usantatecla.sudoku.models
 		NINE,
 	}
 
-	public static class NumberExtensions {
 
-        public static Number? ToNumber(this int value){
-			object result;
-			if(Enum.TryParse(typeof(Number), "" + value, out result)){
-				return (Number)result;
-			}
-            return null;
+    public static class NumberExtensions
+    {
+		public static Number ToNumber(this string value)
+		{
+			return (value == Board.EMPTY_NUMBER_ASSIGN || value == Board.EMPTY_NUMBER_LOAD)
+				? Number.EMPTY
+				: EnumExtension.GetValueFromDescription<Number>(value);
         }
-
-        public static Number? ToNumber(this string value){
-            if(string.IsNullOrEmpty(value)){
-                return Number.EMPTY;
-            }
-			try{
-				return EnumExtension.GetValueFromDescription<Number>(value);
-			}catch(ArgumentException){
-				return null;
-			}
-        }
-
-		public static Number ToNumber(this char value){
-			if(value == '.'){
-				return Number.EMPTY;
-			}
-			return ((int)Char.GetNumericValue(value)).ToNumber().Value;
-		}
-    }
+	}
 }

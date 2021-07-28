@@ -1,49 +1,26 @@
 using NUnit.Framework;
-using Moq;
 using usantatecla.sudoku.models;
 
 namespace usantatecla.sudoku.controllers
 {
     public class StartControllerTest
     {
+        private Board _board;
+        private StartController _sut;
 
         [SetUp]
-        public void Setup() { }
-
-        [Test]
-        public void Given_StartController_WhenStart_ThenBoardLoadsTheSquares()
-        {
-            var board = new Board();
-            var coordinate = new Coordinate(0, 0);
-
-            var sut = new StartController(board, new FivesSudokuLoader());
-
-            sut.Start();
-            Assert.AreEqual(GetSquareNumber(board, coordinate), "5");
-
-            board.Assign(new Assignment(coordinate, Number.TWO));
-
-            sut.Start();
-            Assert.AreEqual(GetSquareNumber(board, coordinate), "5");
+        public void Setup() { 
+            this._board = new Board();
+            this._sut = new StartController(_board, new FivesSudokuLoader());
         }
 
         [Test]
         public void Given_StartController_WhenNotStartYet_ThenBoardHasNullSquares()
         {
-            var board = new Board();
-
-            var actual = board.GetBoard()[0][0];
-            Assert.IsNull(actual);
-
-            actual = board.GetBoard()[8][8];
+            var actual = _board.GetSquares()[0][0];
             Assert.IsNull(actual);
         }
 
-
-        private string GetSquareNumber(Board board, Coordinate coordinate) {
-            return board.GetBoard()[coordinate.Row][coordinate.Column].ToString();
-        }
-        
     }
 
     class FivesSudokuLoader : ISudokuLoader

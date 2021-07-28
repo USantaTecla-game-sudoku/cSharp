@@ -31,6 +31,11 @@ namespace usantatecla.utils
             this.Write(message, ConsoleColor.White);
         }
 
+        public void Write(int number)
+        {
+            this.Write(number.ToString());
+        }
+
         public void NewLine()
         {
             Console.WriteLine();

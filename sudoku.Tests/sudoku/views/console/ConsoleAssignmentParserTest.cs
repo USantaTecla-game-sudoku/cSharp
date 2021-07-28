@@ -1,13 +1,18 @@
 using System;
+using System.IO;
 using NUnit.Framework;
 using usantatecla.sudoku.models;
 
 namespace usantatecla.sudoku.views.console
 {
-    public class ConsoleAssignmentParserTest : ConsoleViewTest{
+    public class ConsoleAssignmentParserTest : ConsoleViewTest
+    {
+
+        private const string ERROR_FORMAT_MESSAGE = "\n * Not a valid format:\n\tAssign: [A..I][1..9]+[1..9]\n\tRemove: [A..I][1..9]-";
 
         [Test]
-        public void GivenString_WhenParse_ThenReturnAssignement(){
+        public void GivenString_WhenParse_ThenReturnAssignement()
+        {
             string value = "C1+5";
             ConsoleAssignmentParser assignmentParse = new ConsoleAssignmentParser(value);
             Assignment assignment = assignmentParse.Parse();
@@ -17,87 +22,85 @@ namespace usantatecla.sudoku.views.console
         }
 
         [Test]
-        public void GivenString_WhenHasAddFormat_ThenReturnFalseHasError(){
-            string value = "I1+5";
-            ConsoleAssignmentParser assignmentParse = new ConsoleAssignmentParser(value);
+        public void GivenString_WhenHasAddFormat_ThenReturnFalseHasError()
+        {
+            CheckUserInputDontRaisesError("I1+5");
+        }
+
+        [Test]
+        public void GivenString_WhenHasDeleteFormat_ThenReturnFalseHasError()
+        {
+            CheckUserInputDontRaisesError("A1-");
+        }
+
+        [Test]
+        public void GivenString_WhenHasBadColumn_ThenReturnTrueHasError()
+        {
+            CheckUserInputRaisesError("J1+5");
+        }
+
+        [Test]
+        public void GivenString_WhenHasBadRow_ThenReturnTrueHasError()
+        {
+            CheckUserInputRaisesError("A0+3");
+        }
+
+        [Test]
+        public void GivenString_WhenHasBadOperation_ThenReturnTrueHasError()
+        {
+            CheckUserInputRaisesError("I9*5");
+        }
+
+        [Test]
+        public void GivenString_WhenHasBadNumber_ThenReturnTrueHasError()
+        {
+            CheckUserInputRaisesError("I5+0");
+            CheckUserInputRaisesError("I5+10");
+            CheckUserInputRaisesError("I5+");
+        }
+
+        [Test]
+        public void GivenString_WhenHasBadColumn_ThenDisplayError()
+        {
+            CheckUserInputRaisesErrorMessage("J1+5", ERROR_FORMAT_MESSAGE);
+        }
+
+        [Test]
+        public void GivenString_WhenHasBadRow_ThenDisplayError()
+        {
+            CheckUserInputRaisesErrorMessage("A0+3", ERROR_FORMAT_MESSAGE);
+        }
+
+        [Test]
+        public void GivenString_WhenHasBadOperation_ThenDisplayError()
+        {
+            CheckUserInputRaisesErrorMessage("I9*5", ERROR_FORMAT_MESSAGE);
+        }
+
+        [Test]
+        public void GivenString_WhenHasBadNumber_ThenDisplayError()
+        {
+            CheckUserInputRaisesErrorMessage("I5+0", ERROR_FORMAT_MESSAGE);
+        }
+
+
+        private void CheckUserInputRaisesErrorMessage(string userInput, string expectedErrorMessage)
+        {
+            var assignmentParse = new ConsoleAssignmentParser(userInput);
+            assignmentParse.DisplayError();
+            result.WriteLine(expectedErrorMessage);
+            Assert.AreEqual(output.ToString(), result.ToString());
+        }
+
+        private void CheckUserInputRaisesError(string userInput) {
+            ConsoleAssignmentParser assignmentParse = new ConsoleAssignmentParser(userInput);
+            Assert.IsTrue(assignmentParse.HasError());
+        }
+
+        private void CheckUserInputDontRaisesError(string userInput)
+        {
+            ConsoleAssignmentParser assignmentParse = new ConsoleAssignmentParser(userInput);
             Assert.IsFalse(assignmentParse.HasError());
-        }
-
-        [Test]
-        public void GivenString_WhenHasDeleteFormat_ThenReturnFalseHasError(){
-            string value = "A1-";
-            ConsoleAssignmentParser assignmentParse = new ConsoleAssignmentParser(value);
-            Assert.IsFalse(assignmentParse.HasError());
-        }
-
-        [Test]
-        public void GivenString_WhenHasBadColumn_ThenReturnTrueHasError(){
-            string value = "J1+5";
-            ConsoleAssignmentParser assignmentParse = new ConsoleAssignmentParser(value);
-            Assert.IsTrue(assignmentParse.HasError());
-        }
-
-        [Test]
-        public void GivenString_WhenHasBadRow_ThenReturnTrueHasError(){
-            string value = "A0+3";
-            ConsoleAssignmentParser assignmentParse = new ConsoleAssignmentParser(value);
-            Assert.IsTrue(assignmentParse.HasError());
-        }
-
-        [Test]
-        public void GivenString_WhenHasBadOperation_ThenReturnTrueHasError(){
-            string value = "I9*5";
-            ConsoleAssignmentParser assignmentParse = new ConsoleAssignmentParser(value);
-            Assert.IsTrue(assignmentParse.HasError());
-        }
-
-        [Test]
-        public void GivenString_WhenHasBadNumber_ThenReturnTrueHasError(){
-            string value = "I5+0";
-            ConsoleAssignmentParser assignmentParse = new ConsoleAssignmentParser(value);
-            Assert.IsTrue(assignmentParse.HasError());
-            value = "I5+10";
-            assignmentParse = new ConsoleAssignmentParser(value);
-            Assert.IsTrue(assignmentParse.HasError());
-            value = "I5+";
-            assignmentParse = new ConsoleAssignmentParser(value);
-            Assert.IsTrue(assignmentParse.HasError());
-        }
-
-        [Test]
-        public void GivenString_WhenHasBadColumn_ThenDisplayError(){
-            string value = "J1+5";
-            ConsoleAssignmentParser assignmentParse = new ConsoleAssignmentParser(value);
-            assignmentParse.DisplayError();
-            result.WriteLine("Wrong square");
-            Assert.AreEqual(output.ToString(), result.ToString());
-        }
-
-        [Test]
-        public void GivenString_WhenHasBadRow_ThenDisplayError(){
-            string value = "A0+3";
-            ConsoleAssignmentParser assignmentParse = new ConsoleAssignmentParser(value);
-            assignmentParse.DisplayError();
-            result.WriteLine("Wrong square");
-            Assert.AreEqual(output.ToString(), result.ToString());
-        }
-
-        [Test]
-        public void GivenString_WhenHasBadOperation_ThenDisplayError(){
-            string value = "I9*5";
-            ConsoleAssignmentParser assignmentParse = new ConsoleAssignmentParser(value);
-            assignmentParse.DisplayError();
-            result.WriteLine("Not a valid operator {+ -}");
-            Assert.AreEqual(output.ToString(), result.ToString());
-        }
-
-        [Test]
-        public void GivenString_WhenHasBadNumber_ThenDisplayError(){
-            string value = "I5+0";
-            ConsoleAssignmentParser assignmentParse = new ConsoleAssignmentParser(value);
-            assignmentParse.DisplayError();
-            result.WriteLine("Not a valid number {1..9}");
-            Assert.AreEqual(output.ToString(), result.ToString());
         }
     }
 }

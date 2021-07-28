@@ -12,8 +12,8 @@ namespace usantatecla.sudoku.controllers
         }
 
         public void Start() {
-            var template = _sudokuLoader.Load();
-            _board.Load(template);
+            var sudokuTemplate = _sudokuLoader.Load();
+            _board.Load(sudokuTemplate);
         }
     }
 }

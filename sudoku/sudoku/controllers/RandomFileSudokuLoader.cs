@@ -9,39 +9,34 @@ namespace usantatecla.sudoku.controllers
     {
         private const string RESOURCES_FOLDER = "Resources";
         private const string FILE_NAME = "SudokuTemplates.txt";
-        private Random _random;
 
-        public RandomFileSudokuLoader()
+        private IRandomValueGenerator _random;
+
+        public RandomFileSudokuLoader(IRandomValueGenerator random)
         {
-            this._random = new Random();
+            this._random = random;
         }
 
-        public string Load()
-        {
-            return ReadRandomTemplate();
-        }
+        public string Load() => ReadRandomTemplate();
 
         public int GetTemplateCount() => ReadAllTemplates().Count();
-
 
         private string ReadRandomTemplate()
         {
             var templates = ReadAllTemplates();
-            var randomLine = GetRandom(templates.Count());
+            var randomLine = _random.Next(templates.Count());
             return templates[randomLine];
         }
 
-        private List<string> ReadAllTemplates()
+        protected List<string> ReadAllTemplates()
         {
             var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, RESOURCES_FOLDER, FILE_NAME);
             
             return File.ReadLines(filePath)
                 .Where(line => !string.IsNullOrWhiteSpace(line))
                 .ToList();
-
         }
 
-        private int GetRandom(int max) => _random.Next(max);
- 
+        
     }
 }

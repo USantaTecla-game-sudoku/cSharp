@@ -9,41 +9,49 @@ namespace usantatecla.sudoku.views.console
         private int _rowNumber;
         private Square[] _squares;
         private int _boxDimension;
+        private ColorConsole _colorConsole;
+
         public RowView(int rowNumber, Square[] squares) {
             this._rowNumber = rowNumber;
             this._squares = squares;
             this._boxDimension = (int)Math.Sqrt(squares.Length);
+            this._colorConsole = ColorConsole.Instance();
         }
 
         public void Display(){
-            utils.ColorConsole.Instance().Write(Character.WHITE_SPACE.GetDescription());
-            utils.ColorConsole.Instance().Write(this._rowNumber.ToString());
-            utils.ColorConsole.Instance().Write(Character.WHITE_SPACE.GetDescription());
-            utils.ColorConsole.Instance().Write(Character.DOUBLE_VERTICAL_BAR.GetDescription());
-            for(int i = 0; i < this._boxDimension ; i++){
+            Character.WHITE_SPACE.ConsoleDisplay();
+            Display(this._rowNumber);
+            Character.WHITE_SPACE.ConsoleDisplay();
+            Character.DOUBLE_VERTICAL.ConsoleDisplay();
+            for (int i = 0; i < this._boxDimension; i++)
+            {
                 DisplayBoxRow(i);
             }
-            utils.ColorConsole.Instance().NewLine();
+            Character.NEW_LINE.ConsoleDisplay();
         }
 
         private void DisplayBoxRow(int boxValue){
             int columnNumber = boxValue * this._boxDimension;
-            DisplaySquare(_squares[columnNumber++]);
-            utils.ColorConsole.Instance().Write(Character.SIMPLE_VERTICAL_BAR.GetDescription());
-            DisplaySquare(_squares[columnNumber++]);
-            utils.ColorConsole.Instance().Write(Character.SIMPLE_VERTICAL_BAR.GetDescription());
-            DisplaySquare(_squares[columnNumber++]);
-            utils.ColorConsole.Instance().Write(Character.DOUBLE_VERTICAL_BAR.GetDescription());
+            Display(_squares[columnNumber++]);
+            Character.SIMPLE_VERTICAL.ConsoleDisplay();
+            Display(_squares[columnNumber++]);
+            Character.SIMPLE_VERTICAL.ConsoleDisplay();
+            Display(_squares[columnNumber++]);
+            Character.DOUBLE_VERTICAL.ConsoleDisplay();
         }
 
-        private void DisplaySquare(Square square){
-            utils.ColorConsole.Instance().Write(Character.WHITE_SPACE.GetDescription());
+        private void Display(Square square){
+            Character.WHITE_SPACE.ConsoleDisplay();
             new SquareView(square).Display();
-            utils.ColorConsole.Instance().Write(Character.WHITE_SPACE.GetDescription());
+            Character.WHITE_SPACE.ConsoleDisplay();
         }
 
         public bool HaveToCloseTheBox(int i){
             return i % this._boxDimension == (this._boxDimension-1);
+        }
+
+        private void Display(int rowNumber) {
+            _colorConsole.Write(this._rowNumber);
         }
     }
 }

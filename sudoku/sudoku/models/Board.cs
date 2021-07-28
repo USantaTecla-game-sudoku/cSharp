@@ -1,103 +1,123 @@
-﻿using System;
-using System.Collections.Generic;
-using usantatecla.utils;
+﻿using System.Diagnostics;
+using System.Linq;
 
 namespace usantatecla.sudoku.models
 {
-	public class Board {
+    public class Board
+    {
+        public static int SIZE = 9;
+        public static int SIZE_BOX = SIZE / 3;
+        public static string EMPTY_NUMBER_LOAD = ".";
+        public static string EMPTY_NUMBER_ASSIGN = " ";
 
-		public static int SIZE = 9;
-		public static int SIZE_BOX = SIZE / 3;
-		public static string LOAD_EMPTY_SQUARE = ".";
-
-		private Square[][] _squares;
+        private Square[][] _squares;
 
         public Board()
         {
-			this._squares = new Square[SIZE][];
-			for (int i=0; i<SIZE; i++){
-				_squares[i] = new Square[SIZE];
-			}
-		}
+            this._squares = new Square[SIZE][];
+            for (int i = 0; i < SIZE; i++)
+            {
+                _squares[i] = new Square[SIZE];
+            }
+        }
 
-		public virtual void Load(string sudoku) {
-			for (int i=0; i<SIZE; i++){
-				for (int j=0; j<SIZE; j++){
-					int position = j + i*SIZE;
-					string value = sudoku.Substring(position, 1);
-					if (value == LOAD_EMPTY_SQUARE) {
-						_squares[SIZE-i-1][j] = new PlayableSquare();
-					}
-					else {
-						_squares[SIZE-i-1][j] = new HintSquare(EnumExtension.GetValueFromDescription<Number>(value));
-					}
-				}
-			}
-		}
+        public virtual void Load(string sudoku)
+        {
+            Debug.Assert(!string.IsNullOrEmpty(sudoku));
+            Debug.Assert(sudoku.Length == SIZE * SIZE);
 
-		public virtual void Assign(Assignment assignment)
-		{
-			PlayableSquare playableSquare = new PlayableSquare();
-			playableSquare.Assign(assignment.Number);
-			_squares[assignment.Coordinate.Row][assignment.Coordinate.Column] = playableSquare;
-		}
+            for (int row = SIZE - 1; row >= 0; row--)
+            {
+                for (int col = 0; col < SIZE; col++)
+                {
+                    var value = sudoku.Substring(col + row * SIZE, 1);
+                    _squares[SIZE - 1 - row][col] = (value == EMPTY_NUMBER_LOAD)
+                        ? new PlayableSquare()
+                        : new HintSquare(value.ToNumber());
+                }
+            }
+        }
 
-		public virtual bool CanAssign(Assignment assignment)
-		{
-			if(assignment.Number.Equals(Number.EMPTY)){
-				return this._squares[assignment.Coordinate.Row][assignment.Coordinate.Column].CanAssign();
-			}
-			SquareCollection SquareCollectionRow = this.GetRow(assignment);
-			SquareCollection SquareCollectionColum = this.GetColumn(assignment);
-			SquareCollection SquareCollectionBox = this.GetBox(assignment);
-			return  SquareCollectionRow.CanAssign(assignment.Number) &&
-					SquareCollectionColum.CanAssign(assignment.Number) &&
-					SquareCollectionBox.CanAssign(assignment.Number) &&
-					this._squares[assignment.Coordinate.Row][assignment.Coordinate.Column].CanAssign();
-		}
+        public virtual void Assign(Assignment assignment)
+        {
+            var square = (PlayableSquare)(this.GetSquare(assignment));
+            square.Assign(assignment.Number);
+        }
 
-		private SquareCollection GetRow(Assignment assignment) {
-			return 	new SquareCollection(this._squares[assignment.Coordinate.Row]);
-		}
+        public virtual AssignmentResult CanAssign(Assignment assignment)
+        {
+            if (!this.GetSquare(assignment).CanAssign())
+                return AssignmentResult.NOT_PLAYABLE_SQUARE;
 
-		private SquareCollection GetColumn(Assignment assignment)
-		{
-			Square[] squaresColum = new Square[SIZE];
-			for (int i=0; i<SIZE; i++)	{
-				squaresColum[i] = this._squares[i][assignment.Coordinate.Column];
-			}
-			return 	new SquareCollection(squaresColum);
-		}
+            if (!this.GetRow(assignment).CanAssign(assignment.Number))
+                return AssignmentResult.NUMBER_ALREADY_EXISTS_IN_ROW;
 
-		private SquareCollection GetBox(Assignment assignment)
-		{
-			Square[] squaresBox = new Square[SIZE];
-			int initIndexRow = SIZE_BOX * ((assignment.Coordinate.Row) / SIZE_BOX);
-			int initIndexColumn = SIZE_BOX * ((assignment.Coordinate.Column) / SIZE_BOX);
-			int index = 0;
-			for (int i=initIndexRow; i<initIndexRow+SIZE_BOX; i++)	{
-				for (int j=initIndexColumn; j<initIndexColumn+SIZE_BOX; j++) {
-					squaresBox[index] = this._squares[i][j];
-					index++;
-				}
-			}
-			return 	new SquareCollection(squaresBox);
-		}
+            if (!this.GetColumn(assignment).CanAssign(assignment.Number))
+                return AssignmentResult.NUMBER_ALREADY_EXISTS_IN_COLUMN;
 
-		public virtual Square[][] GetBoard() => this._squares;
+            if (!this.GetBox(assignment).CanAssign(assignment.Number))
+                return AssignmentResult.NUMBER_ALREADY_EXISTS_IN_BOX;
 
-		public virtual bool HasSudoku()
-		{
-			for (int i=0; i<SIZE; i++)	{
-				for (int j=0; j<SIZE; j++)	{
-					if (this._squares[i][j].IsEmpty()) {
-						return false;
-					}
-				}
-			}
-			return true;
-		}
 
-	}
+            return AssignmentResult.SUCCESS;
+
+        }
+
+        private SquareCollection GetRow(Assignment assignment)
+        {
+            return new SquareCollection(this._squares[assignment.Coordinate.Row]);
+        }
+
+        private SquareCollection GetColumn(Assignment assignment)
+        {
+            Square[] squaresColum = new Square[SIZE];
+            for (int i = 0; i < SIZE; i++)
+            {
+                squaresColum[i] = this._squares[i][assignment.Coordinate.Column];
+            }
+            return new SquareCollection(squaresColum);
+        }
+
+        private SquareCollection GetBox(Assignment assignment)
+        {
+            Square[] squaresBox = new Square[SIZE];
+            int initIndexRow = SIZE_BOX * ((assignment.Coordinate.Row) / SIZE_BOX);
+            int initIndexColumn = SIZE_BOX * ((assignment.Coordinate.Column) / SIZE_BOX);
+            int index = 0;
+            for (int row = initIndexRow; row < initIndexRow + SIZE_BOX; row++)
+            {
+                for (int col = initIndexColumn; col < initIndexColumn + SIZE_BOX; col++)
+                {
+                    squaresBox[index] = this._squares[row][col];
+                    index++;
+                }
+            }
+            return new SquareCollection(squaresBox);
+        }
+
+        public virtual Square[][] GetSquares() => this._squares;
+
+        public virtual bool HasSudoku()
+        {
+            for (int row = 0; row < SIZE; row++)
+            {
+                for (int col = 0; col < SIZE; col++)
+                {
+                    if (this._squares[row][col].IsEmpty())
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        private Square GetSquare(Assignment assignment)
+        {
+            return this._squares[assignment.Coordinate.Row][assignment.Coordinate.Column];
+        }
+
+    }
 
 }

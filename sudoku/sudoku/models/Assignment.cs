@@ -13,10 +13,5 @@ namespace usantatecla.sudoku.models
             this.Number = number;
         }
 
-        public override string ToString()
-        {
-            return "Coordinate: " + this.Coordinate.ToString() + ", Number: " + this.Number;
-        }
-
     }
 }

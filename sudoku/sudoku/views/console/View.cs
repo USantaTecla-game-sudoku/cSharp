@@ -14,16 +14,10 @@ namespace usantatecla.sudoku.views.console
             this._resumeView = new ResumeView(resumeController);
         }
 
-        protected override void Start(){
-            this._startView.Interact();
-        }
+        protected override void Start() => this._startView.Interact();
 
-        protected override void Play(){
-            this._playView.Interact();
-        }
+        protected override void Play() => this._playView.Interact();
 
-        protected override bool IsResumed(){
-            return this._resumeView.Interact();
-        }
+        protected override bool IsResumed() => this._resumeView.Interact();
     }
 }

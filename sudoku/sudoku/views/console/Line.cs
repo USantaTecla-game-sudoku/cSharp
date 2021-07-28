@@ -5,15 +5,20 @@ namespace usantatecla.sudoku.views.console
 {
     public enum Line {
         [Description("   ╔═══════════╦═══════════╦═══════════╗")]
-        HORIZONTAL_FIRST,
-        [Description("   ║───|───|───║───|───|───║───|───|───║")]
-        HORIZONTAL_SIMPLE,
+        FIRST,
+
+        [Description("   ║───┼───┼───║───┼───┼───║───┼───┼───║")]
+        SIMPLE,
+
         [Description("   ╠═══════════╬═══════════╬═══════════╣")]
-        HORIZONTAL_DOUBLE,
+        DOUBLE,
+
         [Description("   ╚═══════════╩═══════════╩═══════════╝")]
-        HORIZONTAL_LAST,
+        LAST,
+
         [Description("     A   B   C   D   E   F   G   H   I  ")]
-        HORIZONTAL_LETTER,
+        LETTER,
+
     }
 
 }

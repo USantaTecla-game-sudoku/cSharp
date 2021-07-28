@@ -13,9 +13,6 @@ namespace usantatecla.sudoku.models
             this.Column = column;
         }
 
-        public override string ToString()
-        {
-            return "(" + this.Column + "," + this.Row + ")";
-        }
+
 	}
 }

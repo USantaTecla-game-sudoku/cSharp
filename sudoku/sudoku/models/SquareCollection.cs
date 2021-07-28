@@ -12,27 +12,22 @@ namespace usantatecla.sudoku.models
             this._squares = squares;
         }
 
-        public bool CanAssign(Number number) {
-            foreach(Square square in this._squares)
+        public bool CanAssign(Number number)
+        {
+            if (number == Number.EMPTY) 
             {
-                if (square.ToString() == number.GetDescription()) {
+                return true;
+            }
+
+            foreach (Square square in this._squares)
+            {
+                if (square.HasNumber(number))
+                {
                     return false;
                 }
             }
             return true;
         }
 
-        public bool IsNotCompleted() => !IsCompleted();
-
-        public bool IsCompleted()
-        {
-            foreach(Square square in this._squares)
-            {
-                if (square.IsEmpty()) {
-                    return false;
-                }
-            }            
-            return true;
-        }
     }
 }

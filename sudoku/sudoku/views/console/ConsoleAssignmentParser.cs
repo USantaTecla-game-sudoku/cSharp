@@ -1,96 +1,63 @@
 using System;
-using System.Diagnostics;
 using usantatecla.sudoku.models;
 using usantatecla.utils;
+using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 namespace usantatecla.sudoku.views.console
 {
-    public class ConsoleAssignmentParser {
+    public class ConsoleAssignmentParser
+    {
+        private const int ASCII_FIRST_LETTER = 65;
 
-        private static int ASCII_FIRST_LETTER = 65;
-        private string _action;
-        private char _column;
-        private char _row;
-        private char _operator;
-        private string _number;
+        private readonly string _action;
 
-        public ConsoleAssignmentParser(string action) {
-            this._action = action.ToUpper();
-            if(action.Length >= 3){
-                this._column = this._action[0];
-                this._row = this._action[1];
-                this._operator = this._action[2];
-                this._number = this._action.Substring(3);
-            }
-        }
-
-        public Assignment Parse()
+        public ConsoleAssignmentParser(string action)
         {
-            return new Assignment(new Coordinate(GetRow(), GetColumn()), GetNumber().Value);
-        }
-
-        private int GetRow(){
-            return (int)Char.GetNumericValue(this._row) - 1;
-        }
-
-        private int GetColumn(){
-            return ((int)this._column) - ASCII_FIRST_LETTER;
-        }
-
-        private Number? GetNumber(){
-            return this._number.ToNumber();
+            this._action = action.ToUpper();
         }
 
         public bool HasError()
         {
-            return HasFormatInvalid()
-                || HasInvalidColumn()
-                || HasInvalidRow()
-                || HasInvalidOperator()
-                || HasInvalidNumber();
+
+            var assignPattern = @"[A-I]{1}[1-9]{1}[+]{1}[1-9]$";
+            var removePattern = @"[A-I]{1}[1-9]{1}[-]{1}$";
+
+            var expression = new Regex($"{assignPattern}|{removePattern}");
+            var result = expression.Match(_action);
+
+            return !result.Success;
         }
 
-        private bool HasFormatInvalid(){
-            return this._action.Length < 3 || this._action.Length > 4;
+        public Assignment Parse()
+        {
+            Debug.Assert(!HasError());
+
+            var coordinate = new Coordinate(GetRow(), GetColumn());
+            return new Assignment(coordinate, GetNumber());
         }
 
-        private bool HasInvalidColumn(){
-            return !(Char.IsLetter(this._column) && GetColumn() < 9);
+        private int GetRow()
+        {
+            var userRow = (int)Char.GetNumericValue(this._action[1]);
+            return userRow - 1;
         }
 
-        private bool HasInvalidRow(){
-            return !(Char.IsDigit(this._row)
-                && GetRow() >= 0
-                && GetRow() < 9);
+        private int GetColumn()
+        {
+            var userLeterColumn = ((int)this._action[0]);
+            return userLeterColumn - ASCII_FIRST_LETTER;
         }
 
-        private bool HasInvalidOperator(){
-            return !('+'.Equals(this._operator) || '-'.Equals(this._operator));
-        }
+        private Number GetNumber() => this._action.Substring(3).ToNumber();
 
-        private bool HasInvalidNumber(){
-            Number? number = GetNumber();
-            if(number.HasValue){
-                if('-'.Equals(this._operator)){
-                    return !Number.EMPTY.Equals(number.Value);
-                }
-                return !number.HasValue || Number.EMPTY.Equals(number.Value);
+        public void DisplayError()
+        {
+            if (HasError())
+            {
+                Message.ERROR_FORMAT.ConsoleDisplayLine();
             }
-            return true;
-        }
-
-        public void DisplayError() {
-            string message = "";
-            if(HasFormatInvalid()){
-                message = Message.ERROR_FORMAT.GetDescription();
-            }else if(HasInvalidColumn() || HasInvalidRow()){
-                message = Message.ERROR_COORDINATE.GetDescription();
-            }else if(HasInvalidOperator()){
-                message = Message.ERROR_OPERATOR.GetDescription();
-            }else if(HasInvalidNumber()){
-                message = Message.ERROR_NUMBER.GetDescription();
-            }
-            ColorConsole.Instance().WriteLine(message);
         }
     }
+
 }

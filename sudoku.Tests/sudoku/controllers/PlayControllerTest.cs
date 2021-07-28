@@ -31,23 +31,23 @@ namespace usantatecla.sudoku.controllers
         }
 
         [Test]
-        public void Given_PlayController_WhenCantAssign_ThenFalse()
+        public void Given_PlayController_WhenCantAssign_ThenDontSuccess()
         {
-            _mocketBoard.Setup(x => x.CanAssign(It.IsAny<Assignment>())).Returns(false);
+            _mocketBoard.Setup(x => x.CanAssign(It.IsAny<Assignment>())).Returns(AssignmentResult.NOT_PLAYABLE_SQUARE);
 
             var assignment = new Assignment(new Coordinate(0, 0), Number.TWO);
-
-            Assert.IsFalse(_sut.CanAssign(assignment));
+            var assignmentResult = _sut.CanAssign(assignment);
+            Assert.IsTrue(assignmentResult != AssignmentResult.SUCCESS);
         }
 
         [Test]
-        public void Given_PlayController_WhenCanAssign_ThenTrue()
+        public void Given_PlayController_WhenCanAssign_ThenSuccess()
         {
-            _mocketBoard.Setup(x => x.CanAssign(It.IsAny<Assignment>())).Returns(true);
+            _mocketBoard.Setup(x => x.CanAssign(It.IsAny<Assignment>())).Returns(AssignmentResult.SUCCESS);
 
             var assignment = new Assignment(new Coordinate(0, 0), Number.TWO);
-
-            Assert.IsTrue(_sut.CanAssign(assignment));
+            var assignmentResult = _sut.CanAssign(assignment);
+            Assert.IsTrue(assignmentResult == AssignmentResult.SUCCESS);
         }
 
         [Test]
@@ -61,15 +61,15 @@ namespace usantatecla.sudoku.controllers
             var sut = new PlayController(board);
 
             sut.Assign(new Assignment(coordinate, Number.FOUR));
-            Assert.AreEqual(GetSquareNumber(board, coordinate), "4");
+            Assert.AreEqual("4", GetSquareNumber(board, coordinate));
 
             sut.Assign(new Assignment(coordinate, Number.EMPTY));
-            Assert.AreEqual(GetSquareNumber(board, coordinate), " ");
+            Assert.AreEqual(Board.EMPTY_NUMBER_ASSIGN, GetSquareNumber(board, coordinate));
         }
 
         private string GetSquareNumber(Board board, Coordinate coordinate)
         {
-            return board.GetBoard()[coordinate.Row][coordinate.Column].ToString();
+            return board.GetSquares()[coordinate.Row][coordinate.Column].Number.GetDescription();
         }
 
 

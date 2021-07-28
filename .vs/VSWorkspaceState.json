@@ -7,9 +7,8 @@
     "\\sudoku.Tests\\sudoku\\controllers",
     "\\sudoku\\resources",
     "\\sudoku\\sudoku",
-    "\\sudoku\\sudoku\\controllers",
-    "\\sudoku\\sudoku\\models"
+    "\\sudoku\\sudoku\\controllers"
   ],
-  "SelectedNode": "\\sudoku.Tests\\sudoku\\controllers\\PlayControllerTest.cs",
+  "SelectedNode": "\\sudoku.Tests\\sudoku\\controllers\\RandomFileSudokuLoaderTest.cs",
   "PreviewInSolutionExplorer": false
 }

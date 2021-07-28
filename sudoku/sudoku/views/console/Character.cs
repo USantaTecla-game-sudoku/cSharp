@@ -8,10 +8,15 @@ namespace usantatecla.sudoku.views.console
     public enum Character {
         [Description(" ")]
         WHITE_SPACE,
+
         [Description("║")]
-        DOUBLE_VERTICAL_BAR,
+        DOUBLE_VERTICAL,
+
         [Description("|")]
-        SIMPLE_VERTICAL_BAR,
+        SIMPLE_VERTICAL,
+
+        [Description("\r\n")]
+        NEW_LINE,
     }
 
 }
