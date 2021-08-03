@@ -12,6 +12,8 @@ namespace usantatecla.sudoku.controllers
 
         private IRandomValueGenerator _random;
 
+        public RandomFileSudokuLoader() : this(new DefaultRandom()) { }
+
         public RandomFileSudokuLoader(IRandomValueGenerator random)
         {
             this._random = random;
@@ -37,6 +39,18 @@ namespace usantatecla.sudoku.controllers
                 .ToList();
         }
 
-        
+
+
+        class DefaultRandom : IRandomValueGenerator
+        {
+            private Random _random;
+
+            public DefaultRandom()
+            {
+                this._random = new Random();
+            }
+
+            public virtual int Next(int max) => _random.Next(max);
+        }
     }
 }

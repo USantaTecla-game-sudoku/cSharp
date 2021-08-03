@@ -6,6 +6,8 @@ namespace usantatecla.sudoku.controllers
 
         private ISudokuLoader _sudokuLoader;
 
+        public StartController(Board board) : this(board, new RandomFileSudokuLoader()) { }
+
         public StartController(Board board, ISudokuLoader sudokuLoader) : base(board)
         {
             _sudokuLoader = sudokuLoader;
@@ -15,5 +17,6 @@ namespace usantatecla.sudoku.controllers
             var sudokuTemplate = _sudokuLoader.Load();
             _board.Load(sudokuTemplate);
         }
+
     }
 }

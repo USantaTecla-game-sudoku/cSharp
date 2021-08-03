@@ -15,7 +15,7 @@ namespace usantatecla.sudoku
 
         protected Sudoku() {
             this._board = new Board();
-            this._startController = new StartController(_board, new RandomFileSudokuLoader(new SudokuRandomValueGenerator()));
+            this._startController = new StartController(_board);
             this._playController = new PlayController(_board);
             this._resumeController = new ResumeController(_board, _startController);
             this._view = this.CreateView(this._startController, this._playController, this._resumeController);
