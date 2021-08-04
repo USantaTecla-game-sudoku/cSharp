@@ -7,7 +7,7 @@ namespace usantatecla.sudoku.controllers
     {
         protected Board _board;
 
-        public Controller(Board board)
+        protected Controller(Board board)
         {
             this._board = board;
         }

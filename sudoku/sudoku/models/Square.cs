@@ -7,7 +7,7 @@ namespace usantatecla.sudoku.models
 
         public Number Number { get; protected set; }
 
-        public Square(Number number)
+        protected Square(Number number)
         {
             this.Number = number;
         }

@@ -5,7 +5,7 @@ namespace usantatecla.sudoku.models
 {
 	public class PlayableSquare : Square
 	{
-		public PlayableSquare() : base(Number.EMPTY) { }
+		public PlayableSquare() : this(Number.EMPTY) { }
 
 		public PlayableSquare(Number number) : base(number) { }
 

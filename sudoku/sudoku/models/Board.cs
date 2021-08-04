@@ -63,6 +63,24 @@ namespace usantatecla.sudoku.models
 
         }
 
+        public virtual Square[][] GetSquares() => this._squares;
+
+        public virtual bool HasSudoku()
+        {
+            for (int row = 0; row < SIZE; row++)
+            {
+                for (int col = 0; col < SIZE; col++)
+                {
+                    if (this._squares[row][col].IsEmpty())
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
         private SquareCollection GetRow(Assignment assignment)
         {
             return new SquareCollection(this._squares[assignment.Coordinate.Row]);
@@ -93,24 +111,6 @@ namespace usantatecla.sudoku.models
                 }
             }
             return new SquareCollection(squaresBox);
-        }
-
-        public virtual Square[][] GetSquares() => this._squares;
-
-        public virtual bool HasSudoku()
-        {
-            for (int row = 0; row < SIZE; row++)
-            {
-                for (int col = 0; col < SIZE; col++)
-                {
-                    if (this._squares[row][col].IsEmpty())
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            return true;
         }
 
         private Square GetSquare(Assignment assignment)

@@ -46,7 +46,7 @@ namespace usantatecla.sudoku.views.console
             Character.WHITE_SPACE.ConsoleDisplay();
         }
 
-        public bool HaveToCloseTheBox(int i){
+        private bool HaveToCloseTheBox(int i){
             return i % this._boxDimension == (this._boxDimension-1);
         }
 
