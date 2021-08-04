@@ -7,7 +7,7 @@ namespace usantatecla.sudoku.views
         [Description("\n   -------------- SUDOKU ---------------\n")]
         START,
 
-        [Description("\nSelect coordinate to assign: ")]
+        [Description("\nSelect a square to assign: ")]
         ASSIGNMENT,
 
         [Description("\nYou win!!! :-)")]

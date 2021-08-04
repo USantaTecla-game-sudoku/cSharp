@@ -43,7 +43,7 @@ namespace usantatecla.sudoku.models
     {
 		public static Number ToNumber(this string value)
 		{
-			return (value == Board.EMPTY_NUMBER_ASSIGN || value == Board.EMPTY_NUMBER_LOAD)
+			return (value == Board.EMPTY_NUMBER_ASSIGN || value == Board.EMPTY_NUMBER_LOAD || value == string.Empty)
 				? Number.EMPTY
 				: EnumExtension.GetValueFromDescription<Number>(value);
         }

@@ -58,7 +58,6 @@ namespace usantatecla.sudoku.models
             if (!this.GetBox(assignment).CanAssign(assignment.Number))
                 return AssignmentResult.NUMBER_ALREADY_EXISTS_IN_BOX;
 
-
             return AssignmentResult.SUCCESS;
 
         }

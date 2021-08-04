@@ -49,7 +49,9 @@ namespace usantatecla.sudoku.views.console
             return userLeterColumn - ASCII_FIRST_LETTER;
         }
 
-        private Number GetNumber() => this._action.Substring(3).ToNumber();
+        private Number GetNumber(){
+            return this._action.Substring(3).ToNumber();
+        } 
 
         public void DisplayError()
         {
