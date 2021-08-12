@@ -5,7 +5,7 @@ namespace usantatecla.sudoku.models
 {
 	public class SquareCollection {
 
-		private Square[] _squares;
+		private readonly Square[] _squares;
 
         public SquareCollection(Square[] squares)
         {
@@ -17,7 +17,7 @@ namespace usantatecla.sudoku.models
             if (number == Number.EMPTY) 
             {
                 return true;
-            }
+            } 
 
             foreach (Square square in this._squares)
             {
@@ -26,8 +26,8 @@ namespace usantatecla.sudoku.models
                     return false;
                 }
             }
+
             return true;
         }
-
     }
 }

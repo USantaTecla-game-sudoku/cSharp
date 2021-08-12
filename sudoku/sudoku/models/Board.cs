@@ -5,12 +5,12 @@ namespace usantatecla.sudoku.models
 {
     public class Board
     {
-        public static int SIZE = 9;
-        public static int SIZE_BOX = SIZE / 3;
-        public static string EMPTY_NUMBER_LOAD = ".";
-        public static string EMPTY_NUMBER_ASSIGN = " ";
+        public readonly static int SIZE = 9;
+        public readonly static int SIZE_BOX = SIZE / 3;
+        public readonly static string EMPTY_NUMBER_LOAD = ".";
+        public readonly static string EMPTY_NUMBER_ASSIGN = " ";
 
-        private Square[][] _squares;
+        private readonly Square[][] _squares;
 
         public Board()
         {

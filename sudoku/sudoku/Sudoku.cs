@@ -7,24 +7,21 @@ namespace usantatecla.sudoku
 {
     public abstract class Sudoku {
 
-        private Board _board;
-        private StartController _startController;
-        private PlayController _playController;
-        private ResumeController _resumeController;
-        private View _view;
+        private readonly Board _board;
+        private readonly StartController _startController;
+        private readonly PlayController _playController;
+        private readonly View _view;
 
         protected Sudoku() {
             this._board = new Board();
             this._startController = new StartController(_board);
             this._playController = new PlayController(_board);
-            this._resumeController = new ResumeController(_board, _startController);
-            this._view = this.CreateView(this._startController, this._playController, this._resumeController);
+            this._view = this.CreateView(this._startController, this._playController);
         }
 
         protected abstract View CreateView(
             StartController startController, 
-            PlayController playController, 
-            ResumeController resumeController);
+            PlayController playController);
 
         protected void Play() => this._view.Interact();
     }

@@ -6,11 +6,7 @@ namespace usantatecla.sudoku.views.console
 {
     public class ResumeView {
 
-        private ResumeController resumeController;
-
-        public ResumeView(ResumeController resumeController) {
-            this.resumeController = resumeController;
-        }
+        public ResumeView() {}
 
         public bool Interact() {
             string yesOrNot;

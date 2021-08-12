@@ -10,7 +10,7 @@ namespace usantatecla.sudoku.controllers
         private const string RESOURCES_FOLDER = "Resources";
         private const string FILE_NAME = "SudokuTemplates.txt";
 
-        private IRandomValueGenerator _random;
+        private readonly IRandomValueGenerator _random;
 
         public RandomFileSudokuLoader() : this(new DefaultRandom()) { }
 
@@ -38,7 +38,6 @@ namespace usantatecla.sudoku.controllers
                 .Where(line => !string.IsNullOrWhiteSpace(line))
                 .ToList();
         }
-
 
 
         class DefaultRandom : IRandomValueGenerator

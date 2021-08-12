@@ -4,7 +4,6 @@ using System.Reflection;
 
 namespace usantatecla.utils
 {
-
     public static class EnumExtension{
 
         public static string GetDescription(this Enum enumeration){
@@ -40,20 +39,6 @@ namespace usantatecla.utils
             }
 
             throw new ArgumentException("Not found.", nameof(description));
-        }
-
-        public static void ConsoleDisplayLine(this Enum enumertion) {
-            ColorConsole.Instance().WriteLine(enumertion.GetDescription());
-        }
-
-        public static void ConsoleDisplay(this Enum enumertion)
-        {
-            ColorConsole.Instance().Write(enumertion.GetDescription());
-        }
-
-        public static void ConsoleDisplay(this Enum enumertion, ConsoleColor color)
-        {
-            ColorConsole.Instance().Write(enumertion.GetDescription(), color);
         }
 
     }

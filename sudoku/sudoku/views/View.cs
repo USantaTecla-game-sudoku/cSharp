@@ -1,3 +1,5 @@
+using usantatecla.sudoku.controllers;
+
 namespace usantatecla.sudoku.views
 {
     public abstract class View {

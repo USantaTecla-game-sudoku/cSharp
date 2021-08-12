@@ -5,9 +5,9 @@ using usantatecla.utils;
 namespace usantatecla.sudoku.views.console
 {
     public class BoardView {
-        private Square[][] _squares;
-        private int _boxDimension;
-        private ColorConsole _colorConsole;
+        private readonly Square[][] _squares;
+        private readonly int _boxDimension;
+        private readonly ColorConsole _colorConsole;
 
         public BoardView(Board board) {
             this._squares = board.GetSquares();
@@ -17,7 +17,7 @@ namespace usantatecla.sudoku.views.console
 
         public void Display() {
 
-            Line.FIRST.ConsoleDisplayLine();
+            ColorConsole.Instance().WriteLine(Line.FIRST);
 
             for(int row = Board.SIZE - 1 ; row >= 0 ; row--){
 
@@ -28,11 +28,11 @@ namespace usantatecla.sudoku.views.console
                         ? Line.DOUBLE
                         : Line.SIMPLE;
 
-                    line.ConsoleDisplayLine();
+                    ColorConsole.Instance().WriteLine(line);
                 }
             }
-            Line.LAST.ConsoleDisplayLine();
-            Line.LETTER.ConsoleDisplayLine();
+            ColorConsole.Instance().WriteLine(Line.LAST);
+            ColorConsole.Instance().WriteLine(Line.LETTER);
         }
 
         private bool HaveToCloseRowBoard(int row) => row > 0;

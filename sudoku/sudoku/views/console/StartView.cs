@@ -6,14 +6,14 @@ namespace usantatecla.sudoku.views.console
 {
     public class StartView {
 
-        private StartController startController;
+        private readonly StartController startController;
 
         public StartView(StartController startController) {
             this.startController = startController;
         }
 
         public void Interact() {
-            Message.START.ConsoleDisplayLine();
+            ColorConsole.Instance().WriteLine(Message.START);
             this.startController.Start();
         }
     }

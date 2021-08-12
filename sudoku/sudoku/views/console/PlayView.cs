@@ -6,8 +6,8 @@ namespace usantatecla.sudoku.views.console
 {
     public class PlayView
     {
-        private PlayController playController;
-        private ColorConsole _colorConsole;
+        private readonly PlayController playController;
+        private readonly ColorConsole _colorConsole;
 
         public PlayView(PlayController playController)
         {
@@ -19,14 +19,14 @@ namespace usantatecla.sudoku.views.console
         {
             do
             {
-                DisplayBoard();
+                this.DisplayBoard();
                 var assignment = GetValidAssignmnet();
                 this.playController.Assign(assignment);
 
             } while (!this.playController.HasSudoku());
 
-            DisplayBoard();
-            Message.WINNER.ConsoleDisplayLine();
+            this.DisplayBoard();
+            ColorConsole.Instance().WriteLine(Message.WINNER);
         }
 
         private Assignment GetValidAssignmnet() {
@@ -38,7 +38,7 @@ namespace usantatecla.sudoku.views.console
             {
                 assignment = GetPlayerAssignment();
                 assignmentResult = this.playController.CanAssign(assignment);
-                assignmentResult.ConsoleDisplayLine();
+                ColorConsole.Instance().WriteLine(assignmentResult);
             } while (assignmentResult != AssignmentResult.SUCCESS);
 
             return assignment;
@@ -46,10 +46,10 @@ namespace usantatecla.sudoku.views.console
 
         private Assignment GetPlayerAssignment()
         {
-            ConsoleAssignmentParser parser;
+            AssignmentParser parser;
             do
             {
-                parser = new ConsoleAssignmentParser(GetPlayerAction());
+                parser = new AssignmentParser(GetPlayerAction());
                 parser.DisplayError();
 
             } while (parser.HasError());

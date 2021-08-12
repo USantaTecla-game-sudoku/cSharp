@@ -4,7 +4,7 @@ namespace usantatecla.sudoku.controllers
 {
     public class StartController : Controller {
 
-        private ISudokuLoader _sudokuLoader;
+        private readonly ISudokuLoader _sudokuLoader;
 
         public StartController(Board board) : this(board, new RandomFileSudokuLoader()) { }
 

@@ -4,14 +4,14 @@ namespace usantatecla.sudoku.views.console
 {
     public class View : usantatecla.sudoku.views.View {
 
-        private StartView _startView;
-        private PlayView _playView;
-        private ResumeView _resumeView;
+        private readonly StartView _startView;
+        private readonly PlayView _playView;
+        private readonly ResumeView _resumeView;
 
-        public View(StartController startController, PlayController playController, ResumeController resumeController) {
+        public View(StartController startController, PlayController playController) {
             this._startView = new StartView(startController);
             this._playView = new PlayView(playController);
-            this._resumeView = new ResumeView(resumeController);
+            this._resumeView = new ResumeView();
         }
 
         protected override void Start() => this._startView.Interact();

@@ -4,6 +4,7 @@ using System.ComponentModel;
 namespace usantatecla.sudoku.views.console
 {
     public enum Line {
+
         [Description("   ╔═══════════╦═══════════╦═══════════╗")]
         FIRST,
 
@@ -20,5 +21,4 @@ namespace usantatecla.sudoku.views.console
         LETTER,
 
     }
-
 }

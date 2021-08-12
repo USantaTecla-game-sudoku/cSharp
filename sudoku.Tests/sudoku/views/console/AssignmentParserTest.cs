@@ -5,17 +5,17 @@ using usantatecla.sudoku.models;
 
 namespace usantatecla.sudoku.views.console
 {
-    public class ConsoleAssignmentParserTest : ConsoleViewTest
+    public class AssignmentParserTest : ConsoleViewTest
     {
-
         private const string ERROR_FORMAT_MESSAGE = "\n * Not a valid format:\n\tAssign: [A..I][1..9]+[1..9]\n\tRemove: [A..I][1..9]-";
 
         [Test]
         public void GivenString_WhenParse_ThenReturnAssignement()
         {
             string value = "C1+5";
-            ConsoleAssignmentParser assignmentParse = new ConsoleAssignmentParser(value);
-            Assignment assignment = assignmentParse.Parse();
+            var assignmentParse = new AssignmentParser(value);
+            var assignment = assignmentParse.Parse();
+
             Assert.AreEqual(Number.FIVE, assignment.Number);
             Assert.AreEqual(2, assignment.Coordinate.Column);
             Assert.AreEqual(0, assignment.Coordinate.Row);
@@ -86,21 +86,21 @@ namespace usantatecla.sudoku.views.console
 
         private void CheckUserInputRaisesErrorMessage(string userInput, string expectedErrorMessage)
         {
-            var assignmentParse = new ConsoleAssignmentParser(userInput);
-            assignmentParse.DisplayError();
+            var assignmentParser = new AssignmentParser(userInput);
+            assignmentParser.DisplayError();
             result.WriteLine(expectedErrorMessage);
             Assert.AreEqual(output.ToString(), result.ToString());
         }
 
         private void CheckUserInputRaisesError(string userInput) {
-            ConsoleAssignmentParser assignmentParse = new ConsoleAssignmentParser(userInput);
-            Assert.IsTrue(assignmentParse.HasError());
+            var assignmentParser = new AssignmentParser(userInput);
+            Assert.IsTrue(assignmentParser.HasError());
         }
 
         private void CheckUserInputDontRaisesError(string userInput)
         {
-            ConsoleAssignmentParser assignmentParse = new ConsoleAssignmentParser(userInput);
-            Assert.IsFalse(assignmentParse.HasError());
+            var assignmentParser = new AssignmentParser(userInput);
+            Assert.IsFalse(assignmentParser.HasError());
         }
     }
 }

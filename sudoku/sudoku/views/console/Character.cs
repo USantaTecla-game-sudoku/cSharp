@@ -6,6 +6,7 @@ using usantatecla.utils;
 namespace usantatecla.sudoku.views.console
 {
     public enum Character {
+
         [Description(" ")]
         WHITE_SPACE,
 
@@ -18,5 +19,4 @@ namespace usantatecla.sudoku.views.console
         [Description("\r\n")]
         NEW_LINE,
     }
-
 }

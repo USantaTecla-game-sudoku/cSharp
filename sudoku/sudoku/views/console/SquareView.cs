@@ -6,14 +6,14 @@ namespace usantatecla.sudoku.views.console
 {
     public class SquareView {
 
-        private Square _square;
+        private readonly Square _square;
 
         public SquareView(Square square) {
             this._square = square;
         }
 
         public void Display() {
-            _square.Number.ConsoleDisplay(_square.GetColor());
+            ColorConsole.Instance().Write(_square.Number, _square.GetColor());
         }
 
     }

@@ -27,32 +27,43 @@ namespace usantatecla.utils
             return result;
         }
 
-        public void Write(string message) {
-            this.Write(message, ConsoleColor.White);
-        }
 
         public void Write(int number)
         {
             this.Write(number.ToString());
         }
 
-        public void NewLine()
+        public void Write(Enum enumertion) {
+            this.Write(enumertion.GetDescription());
+        }
+
+        public void Write(string message) {
+            this.Write(message, ConsoleColor.White);
+        }
+
+        public void Write(Enum enumertion, ConsoleColor color)
         {
-            Console.WriteLine();
+            this.Write(enumertion.GetDescription(), color);
+        }
+
+
+        public void WriteLine(Enum enumertion) {
+            this.WriteLine(enumertion.GetDescription());
         }
 
         public void WriteLine(string message)
         {
             this.WriteLine(message, ConsoleColor.White);
         }
+ 
 
-        public void Write(string message, ConsoleColor color)
+        private void Write(string message, ConsoleColor color)
         {
             Console.ForegroundColor = color;
             Console.Write(message);
         }
 
-        public void WriteLine(string message, ConsoleColor color)
+        private void WriteLine(string message, ConsoleColor color)
         {
             Console.ForegroundColor = color;
             Console.WriteLine(message);

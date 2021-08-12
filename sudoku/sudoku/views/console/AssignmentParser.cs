@@ -6,13 +6,13 @@ using System.Diagnostics;
 
 namespace usantatecla.sudoku.views.console
 {
-    public class ConsoleAssignmentParser
+    public class AssignmentParser
     {
         private const int ASCII_FIRST_LETTER = 65;
 
         private readonly string _action;
 
-        public ConsoleAssignmentParser(string action)
+        public AssignmentParser(string action)
         {
             this._action = action.ToUpper();
         }
@@ -57,7 +57,7 @@ namespace usantatecla.sudoku.views.console
         {
             if (HasError())
             {
-                Message.ERROR_FORMAT.ConsoleDisplayLine();
+                ColorConsole.Instance().WriteLine(Message.ERROR_FORMAT);
             }
         }
     }

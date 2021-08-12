@@ -6,10 +6,10 @@ namespace usantatecla.sudoku.views.console
 {
     public class RowView {
 
-        private int _rowNumber;
-        private Square[] _squares;
-        private int _boxDimension;
-        private ColorConsole _colorConsole;
+        private readonly int _rowNumber;
+        private readonly Square[] _squares;
+        private readonly int _boxDimension;
+        private readonly ColorConsole _colorConsole;
 
         public RowView(int rowNumber, Square[] squares) {
             this._rowNumber = rowNumber;
@@ -19,31 +19,35 @@ namespace usantatecla.sudoku.views.console
         }
 
         public void Display(){
-            Character.WHITE_SPACE.ConsoleDisplay();
+
+            ColorConsole.Instance().Write(Character.WHITE_SPACE);
             Display(this._rowNumber);
-            Character.WHITE_SPACE.ConsoleDisplay();
-            Character.DOUBLE_VERTICAL.ConsoleDisplay();
+            ColorConsole.Instance().Write(Character.WHITE_SPACE);
+
+            ColorConsole.Instance().Write(Character.DOUBLE_VERTICAL);
+
             for (int i = 0; i < this._boxDimension; i++)
             {
                 DisplayBoxRow(i);
             }
-            Character.NEW_LINE.ConsoleDisplay();
+
+            ColorConsole.Instance().Write(Character.NEW_LINE);
         }
 
         private void DisplayBoxRow(int boxValue){
             int columnNumber = boxValue * this._boxDimension;
             Display(_squares[columnNumber++]);
-            Character.SIMPLE_VERTICAL.ConsoleDisplay();
+            ColorConsole.Instance().Write(Character.SIMPLE_VERTICAL);
             Display(_squares[columnNumber++]);
-            Character.SIMPLE_VERTICAL.ConsoleDisplay();
+            ColorConsole.Instance().Write(Character.SIMPLE_VERTICAL);
             Display(_squares[columnNumber++]);
-            Character.DOUBLE_VERTICAL.ConsoleDisplay();
+            ColorConsole.Instance().Write(Character.DOUBLE_VERTICAL);
         }
 
         private void Display(Square square){
-            Character.WHITE_SPACE.ConsoleDisplay();
+            ColorConsole.Instance().Write(Character.WHITE_SPACE);
             new SquareView(square).Display();
-            Character.WHITE_SPACE.ConsoleDisplay();
+            ColorConsole.Instance().Write(Character.WHITE_SPACE);
         }
 
         private bool HaveToCloseTheBox(int i){
