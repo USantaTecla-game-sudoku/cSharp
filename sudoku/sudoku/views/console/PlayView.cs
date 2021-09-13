@@ -6,7 +6,8 @@ namespace usantatecla.sudoku.views.console
 {
     public class PlayView : ConsoleView
     {
-        private PlayController playController;
+        private readonly PlayController playController;
+
         public PlayView(PlayController playController)
         {
             this.playController = playController;
@@ -16,7 +17,7 @@ namespace usantatecla.sudoku.views.console
         {
             do
             {
-                DisplayBoard();
+                this.DisplayBoard();
                 var assignment = GetValidAssignmnet();
                 this.playController.Assign(assignment);
 
@@ -43,10 +44,10 @@ namespace usantatecla.sudoku.views.console
 
         private Assignment GetPlayerAssignment()
         {
-            ConsoleAssignmentParser parser;
+            AssignmentParser parser;
             do
             {
-                parser = new ConsoleAssignmentParser(GetPlayerAction());
+                parser = new AssignmentParser(GetPlayerAction());
                 parser.DisplayError();
 
             } while (parser.HasError());

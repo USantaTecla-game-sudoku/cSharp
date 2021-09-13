@@ -6,9 +6,9 @@ namespace usantatecla.sudoku.views.console
 {
     public class RowView : ConsoleView {
 
-        private int _rowNumber;
-        private Square[] _squares;
-        private int _boxDimension;
+        private readonly int _rowNumber;
+        private readonly Square[] _squares;
+        private readonly int _boxDimension;
 
         public RowView(int rowNumber, Square[] squares) {
             this._rowNumber = rowNumber;

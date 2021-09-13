@@ -13,5 +13,4 @@ namespace usantatecla.sudoku.views.console
 
         public Line(int id, string value) : base(id, value){}
     }
-
 }

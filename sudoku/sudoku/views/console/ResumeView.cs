@@ -7,7 +7,6 @@ namespace usantatecla.sudoku.views.console
     public class ResumeView : ConsoleView {
 
         private ResumeController resumeController;
-
         public ResumeView(ResumeController resumeController) {
             this.resumeController = resumeController;
         }

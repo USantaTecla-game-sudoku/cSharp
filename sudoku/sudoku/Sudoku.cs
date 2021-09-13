@@ -7,11 +7,11 @@ namespace usantatecla.sudoku
 {
     public abstract class Sudoku {
 
-        private Board _board;
-        private StartController _startController;
-        private PlayController _playController;
-        private ResumeController _resumeController;
-        private View _view;
+        private readonly Board _board;
+        private readonly StartController _startController;
+        private readonly PlayController _playController;
+        private readonly ResumeController _resumeController;
+        private readonly View _view;
 
         protected Sudoku() {
             this._board = new Board();

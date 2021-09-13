@@ -5,8 +5,8 @@ using usantatecla.utils;
 namespace usantatecla.sudoku.views.console
 {
     public class BoardView : ConsoleView {
-        private Square[][] _squares;
-        private int _boxDimension;
+        private readonly Square[][] _squares;
+        private readonly int _boxDimension;
 
         public BoardView(Board board) {
             this._squares = board.GetSquares();
@@ -21,11 +21,9 @@ namespace usantatecla.sudoku.views.console
 
                 new RowView(row+1, this._squares[row]).Display();
                 if(HaveToCloseRowBoard(row)){
-
                     var line = HaveToCloseTheBox(row)
                         ? Line.DOUBLE
                         : Line.SIMPLE;
-
                     base._colorConsole.WriteLine(line.ToString());
                 }
             }

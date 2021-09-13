@@ -6,7 +6,7 @@ namespace usantatecla.sudoku
 {
     public class ConsoleSudoku : Sudoku
     {
-        
+
         protected override View CreateView(StartController startController, PlayController playController, ResumeController resumeController){
             return new View(startController, playController, resumeController);
         }

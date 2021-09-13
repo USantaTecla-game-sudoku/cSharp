@@ -6,7 +6,7 @@ namespace usantatecla.sudoku.views.console
 {
     public class SquareView : ConsoleView {
 
-        private Square _square;
+        private readonly Square _square;
 
         public SquareView(Square square) : base() {
             this._square = square;

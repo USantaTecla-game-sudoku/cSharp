@@ -14,5 +14,4 @@ namespace usantatecla.sudoku.views.console
 
 		public Character(int id, string value) : base(id, value){}
     }
-
 }

@@ -6,7 +6,7 @@ namespace usantatecla.sudoku.views.console
 {
     public class StartView : ConsoleView{
 
-        private StartController startController;
+        private readonly StartController startController;
 
         public StartView(StartController startController) {
             this.startController = startController;

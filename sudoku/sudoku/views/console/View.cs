@@ -4,9 +4,9 @@ namespace usantatecla.sudoku.views.console
 {
     public class View : usantatecla.sudoku.views.View {
 
-        private StartView _startView;
-        private PlayView _playView;
-        private ResumeView _resumeView;
+        private readonly StartView _startView;
+        private readonly PlayView _playView;
+        private readonly ResumeView _resumeView;
 
         public View(StartController startController, PlayController playController, ResumeController resumeController) {
             this._startView = new StartView(startController);

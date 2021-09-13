@@ -2,8 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\sudoku",
-    "\\sudoku\\resources"
+    "\\sudoku\\resources",
+    "\\sudoku\\sudoku",
+    "\\sudoku\\sudoku\\views",
+    "\\sudoku\\sudoku\\views\\console"
   ],
-  "SelectedNode": "\\sudoku\\resources\\ClassDiagram.cd",
+  "SelectedNode": "\\sudoku\\sudoku\\views\\console\\View.cs",
   "PreviewInSolutionExplorer": false
 }
