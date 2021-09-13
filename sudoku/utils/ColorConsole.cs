@@ -27,20 +27,6 @@ namespace usantatecla.utils
             this.Write(number.ToString());
         }
 
-        public void Write(Enum enumertion) {
-            this.Write(enumertion.GetDescription());
-        }
-
-        public void Write(Enum enumertion, ConsoleColor color)
-        {
-            this.Write(enumertion.GetDescription(), color);
-        }
-
-
-        public void WriteLine(Enum enumertion) {
-            this.WriteLine(enumertion.GetDescription());
-        }
-
         public virtual void WriteLine(string message)
         {
             this.WriteLine(message, ConsoleColor.White);
