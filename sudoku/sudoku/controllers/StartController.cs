@@ -6,7 +6,7 @@ namespace usantatecla.sudoku.controllers
 
         private ISudokuLoader _sudokuLoader;
 
-        public StartController(Board board) : this(board, new RandomFileSudokuLoader()) { }
+        public StartController(Board board) : this(board, new FileSudokuLoader(new LevelGenerator(board))) { }
 
         public StartController(Board board, ISudokuLoader sudokuLoader) : base(board)
         {

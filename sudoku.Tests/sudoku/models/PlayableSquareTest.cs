@@ -32,15 +32,9 @@ namespace usantatecla.sudoku.models {
         }
 
         [Test]
-        public void GivenHintSquare_WhenGetColor_ThenCyan(){
-            _playableSquare = new PlayableSquare(Number.ONE);
-            Assert.AreEqual(_playableSquare.GetColor(), ConsoleColor.White);
-        }
-
-        [Test]
         public void GivenHintSquare_WhenAssing_ThenAssignCorrect(){
             _playableSquare.Assign(Number.ONE);
-            Assert.AreEqual(_playableSquare.Number.GetDescription(), "1");
+            Assert.AreEqual(_playableSquare.Number.ToString(), "1");
         }
     }
 }

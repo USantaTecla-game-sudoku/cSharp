@@ -4,7 +4,7 @@ using usantatecla.utils;
 
 namespace usantatecla.sudoku.views.console
 {
-    public class StartView {
+    public class StartView : ConsoleView{
 
         private StartController startController;
 
@@ -13,7 +13,7 @@ namespace usantatecla.sudoku.views.console
         }
 
         public void Interact() {
-            Message.START.ConsoleDisplayLine();
+            base._colorConsole.WriteLine(Message.START.ToString());
             this.startController.Start();
         }
     }

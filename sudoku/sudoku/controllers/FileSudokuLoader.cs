@@ -2,21 +2,22 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
+using usantatecla.sudoku.models;
 
 namespace usantatecla.sudoku.controllers
 {
-    public class RandomFileSudokuLoader : ISudokuLoader
+    public class FileSudokuLoader : ISudokuLoader
     {
         private const string RESOURCES_FOLDER = "Resources";
         private const string FILE_NAME = "SudokuTemplates.txt";
 
-        private IRandomValueGenerator _random;
+        private IValueGenerator _generator;
 
-        public RandomFileSudokuLoader() : this(new DefaultRandom()) { }
+        public FileSudokuLoader() : this(new RandomGenerator()) { }
 
-        public RandomFileSudokuLoader(IRandomValueGenerator random)
+        public FileSudokuLoader(IValueGenerator _generator)
         {
-            this._random = random;
+            this._generator = _generator;
         }
 
         public string Load() => ReadRandomTemplate();
@@ -26,14 +27,14 @@ namespace usantatecla.sudoku.controllers
         private string ReadRandomTemplate()
         {
             var templates = ReadAllTemplates();
-            var randomLine = _random.Next(templates.Count());
+            var randomLine = _generator.Next(templates.Count());
             return templates[randomLine];
         }
 
         protected List<string> ReadAllTemplates()
         {
             var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, RESOURCES_FOLDER, FILE_NAME);
-            
+
             return File.ReadLines(filePath)
                 .Where(line => !string.IsNullOrWhiteSpace(line))
                 .ToList();
@@ -41,16 +42,32 @@ namespace usantatecla.sudoku.controllers
 
 
 
-        class DefaultRandom : IRandomValueGenerator
+        class RandomGenerator : IValueGenerator
         {
             private Random _random;
 
-            public DefaultRandom()
+            public RandomGenerator()
             {
                 this._random = new Random();
             }
 
             public virtual int Next(int max) => _random.Next(max);
+        }
+    }
+
+    public class LevelGenerator : IValueGenerator{
+        private Board _board;
+        public LevelGenerator(Board board){
+            this._board = board;
+        }
+
+        public virtual int Next(int max){
+            int nextValue = this._board._level;
+            if(nextValue < max){
+                return nextValue;
+            }
+            this._board._level = 0;
+            return 0;
         }
     }
 }

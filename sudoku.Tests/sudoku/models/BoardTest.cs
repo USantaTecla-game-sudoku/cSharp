@@ -21,36 +21,21 @@ namespace usantatecla.sudoku.models
         [Test]
         public void GivenBoard_WhenLoad_ThenLoadOk()
         {
-            checkRow(0, "345286.7.");
-            checkRow(1, "2.7419635");
-            checkRow(2, "961537284");
-            checkRow(3, "7.3924856");
-            checkRow(4, "4.6853791");
-            checkRow(5, "859761423");
-            checkRow(6, "19.342567");
-            checkRow(7, "672195348");
-            checkRow(8, "5.46789..");
+            var data = CreateStringBoardIncomplete();
+
+            for (int row = Board.SIZE - 1; row >= 0; row--)
+            {
+                for (int col = 0; col < Board.SIZE; col++)
+                {
+                    checkCoordinate(new Coordinate(Board.SIZE - 1 - row, col), data.Substring(col + row * Board.SIZE, 1));
+                }
+            }
         }
 
-        private void checkRow(int row, string file)
+        private void checkCoordinate(Coordinate coordinate, string value)
         {
-            Assert.IsTrue(checkSquare(_squares[row][0], file.Substring(0, 1)));
-            Assert.IsTrue(checkSquare(_squares[row][1], file.Substring(1, 1)));
-            Assert.IsTrue(checkSquare(_squares[row][2], file.Substring(2, 1)));
-            Assert.IsTrue(checkSquare(_squares[row][3], file.Substring(3, 1)));
-            Assert.IsTrue(checkSquare(_squares[row][4], file.Substring(4, 1)));
-            Assert.IsTrue(checkSquare(_squares[row][5], file.Substring(5, 1)));
-            Assert.IsTrue(checkSquare(_squares[row][6], file.Substring(6, 1)));
-            Assert.IsTrue(checkSquare(_squares[row][7], file.Substring(7, 1)));
-            Assert.IsTrue(checkSquare(_squares[row][8], file.Substring(8, 1)));
-        }
-
-        private bool checkSquare(Square square, string value)
-        {
-            return (value != Board.EMPTY_NUMBER_LOAD)
-                ? value == square.Number.GetDescription()
-                : square.IsEmpty();
-
+            Square square = _board.GetSquare(coordinate);
+            Assert.AreEqual(value, square.IsEmpty() ? Board.EMPTY_NUMBER_LOAD : square.Number.ToString());
         }
 
         [Test]

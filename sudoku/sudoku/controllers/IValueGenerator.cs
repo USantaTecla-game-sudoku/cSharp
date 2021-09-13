@@ -2,7 +2,7 @@ using System;
 
 namespace usantatecla.sudoku.controllers
 {
-    public interface IRandomValueGenerator
+    public interface IValueGenerator
     {
         int Next(int max);
     }

@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using Moq;
 using NUnit.Framework;
 using usantatecla.sudoku.models;
 
@@ -8,7 +9,7 @@ namespace usantatecla.sudoku.views.console
     public class ConsoleAssignmentParserTest : ConsoleViewTest
     {
 
-        private const string ERROR_FORMAT_MESSAGE = "\n * Not a valid format:\n\tAssign: [A..I][1..9]+[1..9]\n\tRemove: [A..I][1..9]-";
+        // private const string ERROR_FORMAT_MESSAGE = "\n * Not a valid format:\n\tAssign: [A..I][1..9]+[1..9]\n\tRemove: [A..I][1..9]-";
 
         [Test]
         public void GivenString_WhenParse_ThenReturnAssignement()
@@ -62,34 +63,40 @@ namespace usantatecla.sudoku.views.console
         [Test]
         public void GivenString_WhenHasBadColumn_ThenDisplayError()
         {
-            CheckUserInputRaisesErrorMessage("J1+5", ERROR_FORMAT_MESSAGE);
+            CheckUserInputRaisesErrorMessage("J1+5", Message.ERROR_FORMAT);
         }
 
         [Test]
         public void GivenString_WhenHasBadRow_ThenDisplayError()
         {
-            CheckUserInputRaisesErrorMessage("A0+3", ERROR_FORMAT_MESSAGE);
+            CheckUserInputRaisesErrorMessage("A0+3", Message.ERROR_FORMAT);
         }
 
         [Test]
         public void GivenString_WhenHasBadOperation_ThenDisplayError()
         {
-            CheckUserInputRaisesErrorMessage("I9*5", ERROR_FORMAT_MESSAGE);
+            CheckUserInputRaisesErrorMessage("I9*5", Message.ERROR_FORMAT);
         }
 
         [Test]
         public void GivenString_WhenHasBadNumber_ThenDisplayError()
         {
-            CheckUserInputRaisesErrorMessage("I5+0", ERROR_FORMAT_MESSAGE);
+            CheckUserInputRaisesErrorMessage("I5+0", Message.ERROR_FORMAT);
         }
 
+         [Test]
+        public void GivenString_WhenHasWhiteSpaces_ThenDisplayError()
+        {
+            CheckUserInputRaisesErrorMessage(" h9+4", Message.ERROR_FORMAT);
+        }
 
-        private void CheckUserInputRaisesErrorMessage(string userInput, string expectedErrorMessage)
+        private void CheckUserInputRaisesErrorMessage(string userInput, Message expectedErrorMessage)
         {
             var assignmentParse = new ConsoleAssignmentParser(userInput);
+            assignmentParse._colorConsole = mock.Object;
             assignmentParse.DisplayError();
-            result.WriteLine(expectedErrorMessage);
-            Assert.AreEqual(output.ToString(), result.ToString());
+
+            mock.Verify(v => v.WriteLine(expectedErrorMessage.ToString()), Times.Once());
         }
 
         private void CheckUserInputRaisesError(string userInput) {

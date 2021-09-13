@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using Moq;
 using NUnit.Framework;
 using usantatecla.sudoku.models;
 
@@ -13,10 +14,14 @@ namespace usantatecla.sudoku.views.console {
             Board board = new Board();
             board.Load(CreateStringTemplate());
             BoardView view = new BoardView(board);
+            view._colorConsole = mock.Object;
             view.Display();
 
-            CreateManualBoard();
-            Assert.AreEqual(output.ToString(), result.ToString());
+            mock.Verify(v => v.WriteLine(Line.FIRST.ToString()), Times.Once());
+            mock.Verify(v => v.WriteLine(Line.SIMPLE.ToString()), Times.Exactly(6));
+            mock.Verify(v => v.WriteLine(Line.DOUBLE.ToString()), Times.Exactly(2));
+            mock.Verify(v => v.WriteLine(Line.LAST.ToString()), Times.Once());
+            mock.Verify(v => v.WriteLine(Line.LETTER.ToString()), Times.Once());
         }
 
         public string CreateStringTemplate(){
@@ -30,7 +35,7 @@ namespace usantatecla.sudoku.views.console {
                     "...419..5" +
                     "....8..79";
         }
-
+        /*
         public void CreateManualBoard(){
             result.WriteLine("   ╔═══════════╦═══════════╦═══════════╗");
             result.WriteLine(" 9 ║ 5 | 3 |   ║   | 7 |   ║   |   |   ║");
@@ -53,5 +58,6 @@ namespace usantatecla.sudoku.views.console {
             result.WriteLine("   ╚═══════════╩═══════════╩═══════════╝");
             result.WriteLine("     A   B   C   D   E   F   G   H   I  ");
         }
+        */
     }
 }

@@ -4,7 +4,7 @@ using usantatecla.utils;
 
 namespace usantatecla.sudoku.views.console
 {
-    public class ResumeView {
+    public class ResumeView : ConsoleView {
 
         private ResumeController resumeController;
 
@@ -15,9 +15,11 @@ namespace usantatecla.sudoku.views.console
         public bool Interact() {
             string yesOrNot;
             do{
-                yesOrNot = ColorConsole.Instance().Read(Message.RESUME.GetDescription()).ToLower();
+                yesOrNot = base._colorConsole.Read(Message.RESUME.ToString()).ToLower();
             }while(IsInvalidReading(yesOrNot));
-            return ReadingToBoolean(yesOrNot);
+            bool resume = ReadingToBoolean(yesOrNot);
+            this.resumeController.Resume(resume);
+            return resume;
         }
 
         private bool IsInvalidReading(string value){

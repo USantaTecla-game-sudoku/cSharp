@@ -69,7 +69,7 @@ namespace usantatecla.sudoku.controllers
 
         private string GetSquareNumber(Board board, Coordinate coordinate)
         {
-            return board.GetSquares()[coordinate.Row][coordinate.Column].Number.GetDescription();
+            return board.GetSquares()[coordinate.Row][coordinate.Column].Number.ToString();
         }
 
 

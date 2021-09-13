@@ -1,23 +1,17 @@
 using System.ComponentModel;
+using usantatecla.utils;
 
 namespace usantatecla.sudoku.views
 {
-    public enum Message {
+    public class Message : Enumeration
+    {
+        public static Message START = new Message(0, "\n   -------------- SUDOKU ---------------\n");
+        public static Message ASSIGNMENT = new Message(1, "\nSelect a square to assign: ");
+        public static Message WINNER = new Message(2, "\nYou win!!! :-)");
+        public static Message RESUME = new Message(3, "\nDo you want to continue? (y/n): ");
+        public static Message ERROR_FORMAT = new Message(4, "\n * Not a valid format:\n\tAssign: [A..I][1..9]+[1..9]\n\tRemove: [A..I][1..9]-");
 
-        [Description("\n   -------------- SUDOKU ---------------\n")]
-        START,
-
-        [Description("\nSelect a square to assign: ")]
-        ASSIGNMENT,
-
-        [Description("\nYou win!!! :-)")]
-        WINNER,
-
-        [Description("\nDo you want to continue? (y/n): ")]
-        RESUME,
-
-        [Description("\n * Not a valid format:\n\tAssign: [A..I][1..9]+[1..9]\n\tRemove: [A..I][1..9]-")]
-        ERROR_FORMAT,
+        public Message(int id, string value) : base(id, value){}
 
     }
 }

@@ -11,12 +11,15 @@ namespace usantatecla.sudoku.views.console {
 
         [Test]
         public void GivenSquare_WhenDisplay_ThenWriteConsole(){
-            new SquareView(new HintSquare(Number.ONE)).Display();
-            new SquareView(new PlayableSquare(Number.FIVE)).Display();
+            SquareView one = new SquareView(new HintSquare(Number.ONE));
+            one._colorConsole = mock.Object;
+            one.Display();
 
-            result.Write(Number.ONE.GetDescription());
-            result.Write(Number.FIVE.GetDescription());
-            Assert.AreEqual(output.ToString(), result.ToString());
+            mock.Verify(v => v.Write(Number.ONE.ToString(), ConsoleColor.Cyan), Times.Once());
+            SquareView five = new SquareView(new PlayableSquare(Number.FIVE));
+            five._colorConsole = mock.Object;
+            five.Display();
+            mock.Verify(v => v.Write(Number.FIVE.ToString(), ConsoleColor.White), Times.Once());
         }
     }
 }

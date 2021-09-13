@@ -4,15 +4,12 @@ using usantatecla.utils;
 
 namespace usantatecla.sudoku.views.console
 {
-    public class PlayView
+    public class PlayView : ConsoleView
     {
         private PlayController playController;
-        private ColorConsole _colorConsole;
-
         public PlayView(PlayController playController)
         {
             this.playController = playController;
-            this._colorConsole = ColorConsole.Instance();
         }
 
         public void Interact()
@@ -26,7 +23,7 @@ namespace usantatecla.sudoku.views.console
             } while (!this.playController.HasSudoku());
 
             DisplayBoard();
-            Message.WINNER.ConsoleDisplayLine();
+            base._colorConsole.WriteLine(Message.WINNER.ToString());
         }
 
         private Assignment GetValidAssignmnet() {
@@ -38,7 +35,7 @@ namespace usantatecla.sudoku.views.console
             {
                 assignment = GetPlayerAssignment();
                 assignmentResult = this.playController.CanAssign(assignment);
-                assignmentResult.ConsoleDisplayLine();
+                base._colorConsole.WriteLine(assignmentResult.ToString());
             } while (assignmentResult != AssignmentResult.SUCCESS);
 
             return assignment;
@@ -58,7 +55,7 @@ namespace usantatecla.sudoku.views.console
         }
 
         private string GetPlayerAction() {
-            return _colorConsole.Read(Message.ASSIGNMENT.GetDescription());
+            return base._colorConsole.Read(Message.ASSIGNMENT.ToString());
         }
 
         private void DisplayBoard() {

@@ -4,16 +4,7 @@ namespace usantatecla.utils
 {
     public class ColorConsole {
 
-        private static ColorConsole _console;
-
-        public static ColorConsole Instance() {
-            if (ColorConsole._console == null)
-                ColorConsole._console = new ColorConsole();
-
-            return ColorConsole._console;
-        }
-
-        public string Read(string title) {
+        public virtual string Read(string title) {
 
             var result = string.Empty;
 
@@ -27,11 +18,11 @@ namespace usantatecla.utils
             return result;
         }
 
-        public void Write(string message) {
+        public virtual void Write(string message) {
             this.Write(message, ConsoleColor.White);
         }
 
-        public void Write(int number)
+        public virtual void Write(int number)
         {
             this.Write(number.ToString());
         }
@@ -41,18 +32,18 @@ namespace usantatecla.utils
             Console.WriteLine();
         }
 
-        public void WriteLine(string message)
+        public virtual void WriteLine(string message)
         {
             this.WriteLine(message, ConsoleColor.White);
         }
 
-        public void Write(string message, ConsoleColor color)
+        public virtual void Write(string message, ConsoleColor color)
         {
             Console.ForegroundColor = color;
             Console.Write(message);
         }
 
-        public void WriteLine(string message, ConsoleColor color)
+        public virtual void WriteLine(string message, ConsoleColor color)
         {
             Console.ForegroundColor = color;
             Console.WriteLine(message);

@@ -4,20 +4,18 @@ using usantatecla.utils;
 
 namespace usantatecla.sudoku.views.console
 {
-    public class BoardView {
+    public class BoardView : ConsoleView {
         private Square[][] _squares;
         private int _boxDimension;
-        private ColorConsole _colorConsole;
 
         public BoardView(Board board) {
             this._squares = board.GetSquares();
             this._boxDimension = (int)Math.Sqrt(Board.SIZE);
-            this._colorConsole = ColorConsole.Instance();
         }
 
         public void Display() {
 
-            Line.FIRST.ConsoleDisplayLine();
+            base._colorConsole.WriteLine(Line.FIRST.ToString());
 
             for(int row = Board.SIZE - 1 ; row >= 0 ; row--){
 
@@ -28,11 +26,11 @@ namespace usantatecla.sudoku.views.console
                         ? Line.DOUBLE
                         : Line.SIMPLE;
 
-                    line.ConsoleDisplayLine();
+                    base._colorConsole.WriteLine(line.ToString());
                 }
             }
-            Line.LAST.ConsoleDisplayLine();
-            Line.LETTER.ConsoleDisplayLine();
+            base._colorConsole.WriteLine(Line.LAST.ToString());
+            base._colorConsole.WriteLine(Line.LETTER.ToString());
         }
 
         private bool HaveToCloseRowBoard(int row) => row > 0;

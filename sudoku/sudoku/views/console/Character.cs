@@ -5,18 +5,14 @@ using usantatecla.utils;
 
 namespace usantatecla.sudoku.views.console
 {
-    public enum Character {
-        [Description(" ")]
-        WHITE_SPACE,
+    public class Character : Enumeration
+    {
+        public static Character WHITE_SPACE = new Character(0, " ");
+        public static Character DOUBLE_VERTICAL = new Character(1, "║");
+        public static Character SIMPLE_VERTICAL = new Character(2, "|");
+        public static Character NEW_LINE = new Character(3, "\r\n");
 
-        [Description("║")]
-        DOUBLE_VERTICAL,
-
-        [Description("|")]
-        SIMPLE_VERTICAL,
-
-        [Description("\r\n")]
-        NEW_LINE,
+		public Character(int id, string value) : base(id, value){}
     }
 
 }

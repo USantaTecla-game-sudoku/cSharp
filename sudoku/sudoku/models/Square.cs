@@ -11,11 +11,10 @@ namespace usantatecla.sudoku.models
         {
             this.Number = number;
         }
-    
+
         public bool HasNumber(Number number) => this.Number == number;
         public abstract bool CanAssign();
         public abstract bool IsEmpty();
-        public abstract ConsoleColor GetColor();
 	}
 
 }

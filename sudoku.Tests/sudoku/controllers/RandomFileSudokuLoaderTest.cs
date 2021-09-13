@@ -14,13 +14,13 @@ namespace usantatecla.sudoku.controllers
         private const string TEMPLATE_ONE = "142.9...57..4...898.5....242....48...3...126..8..72941.5.2.6....28..941..797.853.";
         private const string TEMPLATE_TWO = "7...2.48.2.6..8..55..9........15.....2.....6.....67........6..36..5..1.4.93.4...7";
 
-        private Mock<FakeRandom> _mockedRandom;
-        private RandomFileSudokuLoader _sut;
+        private Mock<FakeRandomGenerator> _mockedRandom;
+        private FileSudokuLoader _sut;
 
         [SetUp]
         public void Setup() {
-            _mockedRandom = new Mock<FakeRandom>();
-            _sut = new RandomFileSudokuLoader(_mockedRandom.Object);
+            _mockedRandom = new Mock<FakeRandomGenerator>();
+            _sut = new FileSudokuLoader(_mockedRandom.Object);
         }
 
         [Test]
@@ -53,7 +53,7 @@ namespace usantatecla.sudoku.controllers
         [Test]
         public void Given_RandomFileSudokuLoader_WhenLoad1000times_ThenHasLoadAllTemplates()
         {
-            _sut = new RandomFileSudokuLoader();
+            _sut = new FileSudokuLoader();
 
             var loadedTemplates = Load1000Templates();
 
@@ -75,10 +75,10 @@ namespace usantatecla.sudoku.controllers
 
             return readedTemplates;
         }
-        
+
     }
 
-    public class FakeRandom : IRandomValueGenerator {
+    public class FakeRandomGenerator : IValueGenerator {
 
         public virtual int Next(int max) => 0;
     }

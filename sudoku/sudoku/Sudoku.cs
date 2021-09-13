@@ -17,13 +17,13 @@ namespace usantatecla.sudoku
             this._board = new Board();
             this._startController = new StartController(_board);
             this._playController = new PlayController(_board);
-            this._resumeController = new ResumeController(_board, _startController);
+            this._resumeController = new ResumeController(_board);
             this._view = this.CreateView(this._startController, this._playController, this._resumeController);
         }
 
         protected abstract View CreateView(
-            StartController startController, 
-            PlayController playController, 
+            StartController startController,
+            PlayController playController,
             ResumeController resumeController);
 
         protected void Play() => this._view.Interact();

@@ -24,10 +24,13 @@ namespace usantatecla.sudoku.views.console {
             };
 
             RowView view = new RowView(1, squares);
+            view._colorConsole = mock.Object;
             view.Display();
 
-            result.WriteLine(" 1 ║ 1 | 5 | 8 ║ 4 | 9 |   ║ 7 | 2 | 3 ║");
-            Assert.AreEqual(output.ToString(), result.ToString());
+            mock.Verify(v => v.Write(Character.WHITE_SPACE.ToString()), Times.Exactly(20));
+            mock.Verify(v => v.Write(1), Times.Once());
+            mock.Verify(v => v.Write(Character.DOUBLE_VERTICAL.ToString()), Times.Exactly(4));
+            mock.Verify(v => v.Write(Character.SIMPLE_VERTICAL.ToString()), Times.Exactly(6));
         }
     }
 }

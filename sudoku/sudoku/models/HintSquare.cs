@@ -8,8 +8,7 @@ namespace usantatecla.sudoku.models
 
 		public override bool CanAssign() => false;
 		public override bool IsEmpty() => false;
-		public override ConsoleColor GetColor() => ConsoleColor.Cyan;
 	}
 
-	
+
 }

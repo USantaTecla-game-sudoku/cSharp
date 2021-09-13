@@ -25,13 +25,8 @@ namespace usantatecla.sudoku.models {
         }
 
         [Test]
-        public void GivenHintSquare_WhenGetColor_ThenCyan(){
-            Assert.AreEqual(_hintSquare.GetColor(), ConsoleColor.Cyan);
-        }
-
-        [Test]
         public void GivenHintSquare_WhenToString_ThenStringCorrect(){
-            Assert.AreEqual(_hintSquare.Number.GetDescription(), "1");
+            Assert.AreEqual(_hintSquare.Number.ToString(), "1");
         }
     }
 }

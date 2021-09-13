@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace usantatecla.sudoku.views.console
 {
-    public class ConsoleAssignmentParser
+    public class ConsoleAssignmentParser : ConsoleView
     {
         private const int ASCII_FIRST_LETTER = 65;
 
@@ -20,8 +20,8 @@ namespace usantatecla.sudoku.views.console
         public bool HasError()
         {
 
-            var assignPattern = @"[A-I]{1}[1-9]{1}[+]{1}[1-9]$";
-            var removePattern = @"[A-I]{1}[1-9]{1}[-]{1}$";
+            var assignPattern = @"^(?!\s)[A-I]{1}[1-9]{1}[+]{1}[1-9]$";
+            var removePattern = @"^(?!\s)[A-I]{1}[1-9]{1}[-]{1}$";
 
             var expression = new Regex($"{assignPattern}|{removePattern}");
             var result = expression.Match(_action);
@@ -51,13 +51,13 @@ namespace usantatecla.sudoku.views.console
 
         private Number GetNumber(){
             return this._action.Substring(3).ToNumber();
-        } 
+        }
 
         public void DisplayError()
         {
             if (HasError())
             {
-                Message.ERROR_FORMAT.ConsoleDisplayLine();
+                base._colorConsole.WriteLine(Message.ERROR_FORMAT.ToString());
             }
         }
     }

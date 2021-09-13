@@ -12,8 +12,14 @@ namespace usantatecla.sudoku.models
 
         private Square[][] _squares;
 
+        public int _level {
+            get;
+            set;
+        }
+
         public Board()
         {
+            this._level = 0;
             this._squares = new Square[SIZE][];
             for (int i = 0; i < SIZE; i++)
             {
@@ -114,9 +120,13 @@ namespace usantatecla.sudoku.models
 
         private Square GetSquare(Assignment assignment)
         {
-            return this._squares[assignment.Coordinate.Row][assignment.Coordinate.Column];
+            return this.GetSquare(assignment.Coordinate);
         }
 
+        public Square GetSquare(Coordinate coordinate)
+        {
+            return this._squares[coordinate.Row][coordinate.Column];
+        }
     }
 
 }
