@@ -5,9 +5,9 @@ using Moq;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
 using usantatecla.sudoku.controllers;
+using usantatecla.sudoku.controllers.loaders;
 
-
-namespace usantatecla.sudoku.controllers
+namespace usantatecla.sudoku.controllers.loaders
 {
     public class RandomFileSudokuLoaderTest
     {

@@ -26,7 +26,7 @@ namespace usantatecla.sudoku.models {
 
         [Test]
         public void GivenHintSquare_WhenToString_ThenStringCorrect(){
-            Assert.AreEqual(_hintSquare.Number.ToString(), "1");
+            Assert.AreEqual(_hintSquare.Number, Number.ONE);
         }
     }
 }

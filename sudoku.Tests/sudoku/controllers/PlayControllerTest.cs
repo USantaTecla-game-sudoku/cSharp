@@ -1,5 +1,4 @@
 using NUnit.Framework;
-using Moq;
 using usantatecla.sudoku.models;
 using usantatecla.utils;
 
@@ -7,78 +6,83 @@ namespace usantatecla.sudoku.controllers
 {
     public class PlayControllerTest
     {
-        private Mock<Board> _mocketBoard;
         private PlayController _sut;
-
-        [SetUp]
-        public void Setup() {
-            _mocketBoard = new Mock<Board>();
-            _sut = new PlayController(_mocketBoard.Object);
-        }
 
         [Test]
         public void Given_PlayController_WhenDontHasSudoku_ThenFalse()
         {
-            _mocketBoard.Setup(x => x.HasSudoku()).Returns(false);
+            _sut = new PlayController(BoardBuilder.InCompleted());
             Assert.IsFalse(_sut.HasSudoku());
         }
 
         [Test]
         public void Given_PlayController_WhenHasSudoku_ThenTrue()
         {
-            _mocketBoard.Setup(x => x.HasSudoku()).Returns(true);
+            _sut = new PlayController(BoardBuilder.Completed());
             Assert.IsTrue(_sut.HasSudoku());
         }
 
         [Test]
         public void Given_PlayController_WhenCantAssign_ThenDontSuccess()
         {
-            _mocketBoard.Setup(x => x.CanAssign(It.IsAny<Assignment>())).Returns(AssignmentResult.NOT_PLAYABLE_SQUARE);
+            _sut = new PlayController(BoardBuilder.Completed());
 
             var assignment = new Assignment(new Coordinate(0, 0), Number.TWO);
-            var assignmentResult = _sut.CanAssign(assignment);
-            Assert.IsTrue(assignmentResult != AssignmentResult.SUCCESS);
+            Assert.IsFalse(_sut.CanAssign(assignment) == AssignmentResult.SUCCESS);
         }
 
         [Test]
         public void Given_PlayController_WhenCanAssign_ThenSuccess()
         {
-            _mocketBoard.Setup(x => x.CanAssign(It.IsAny<Assignment>())).Returns(AssignmentResult.SUCCESS);
+            _sut = new PlayController(BoardBuilder.Empty());
 
             var assignment = new Assignment(new Coordinate(0, 0), Number.TWO);
-            var assignmentResult = _sut.CanAssign(assignment);
-            Assert.IsTrue(assignmentResult == AssignmentResult.SUCCESS);
+            Assert.IsTrue(_sut.CanAssign(assignment) == AssignmentResult.SUCCESS);
         }
-
-        [Test]
-        public void Given_PlayController_WhenAssign_ThenOverridesNumber()
-        {
-            var coordinate = new Coordinate(0, 0);
-            var board = new Board();
-
-            new StartController(board, new EmptySudokuTemplateLoader()).Start();
-
-            var sut = new PlayController(board);
-
-            sut.Assign(new Assignment(coordinate, Number.FOUR));
-            Assert.AreEqual("4", GetSquareNumber(board, coordinate));
-
-            sut.Assign(new Assignment(coordinate, Number.EMPTY));
-            Assert.AreEqual(Board.EMPTY_NUMBER_ASSIGN, GetSquareNumber(board, coordinate));
-        }
-
-        private string GetSquareNumber(Board board, Coordinate coordinate)
-        {
-            return board.GetSquares()[coordinate.Row][coordinate.Column].Number.ToString();
-        }
-
 
     }
 
-    class EmptySudokuTemplateLoader : ISudokuLoader
+    static class BoardBuilder
     {
-        public string Load() => new string('.', 81);
-    }
+        private static string TEMPLATE_INCOMPLETED =   "5.46789.." +
+                                                       "672195348" +
+                                                       "19.342567" +
+                                                       "859761423" +
+                                                       "4.6853791" +
+                                                       "7.3924856" +
+                                                       "961537284" +
+                                                       "2.7419635" +
+                                                       "345286.7.";
 
+        private static string TEMPLATE_COMPLETED  =    "534678912" +
+                                                       "672195348" +
+                                                       "198342567" +
+                                                       "859761423" +
+                                                       "426853791" +
+                                                       "713924856" +
+                                                       "961537284" +
+                                                       "287419635" +
+                                                       "345286179";
+        
+
+        public static Board Completed() { 
+            var board = new Board();
+            board.Load(TEMPLATE_COMPLETED);
+            return board;
+        }
+        
+        public static Board InCompleted() { 
+            var board = new Board();
+            board.Load(TEMPLATE_INCOMPLETED);
+            return board;
+        }
+
+        public static Board Empty() { 
+            var board = new Board();
+            board.Load(new string('.', 81));
+            return board;
+        }
+
+    }
 
 }

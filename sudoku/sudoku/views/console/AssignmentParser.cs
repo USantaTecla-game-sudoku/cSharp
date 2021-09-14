@@ -19,7 +19,6 @@ namespace usantatecla.sudoku.views.console
 
         public bool HasError()
         {
-
             var assignPattern = @"^(?!\s)[A-I]{1}[1-9]{1}[+]{1}[1-9]$";
             var removePattern = @"^(?!\s)[A-I]{1}[1-9]{1}[-]{1}$";
 
@@ -33,8 +32,8 @@ namespace usantatecla.sudoku.views.console
         {
             Debug.Assert(!HasError());
 
-            var coordinate = new Coordinate(GetRow(), GetColumn());
-            return new Assignment(coordinate, GetNumber());
+            var coordinate = new Coordinate(this.GetRow(), this.GetColumn());
+            return new Assignment(coordinate, this.GetNumber());
         }
 
         private int GetRow()

@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using usantatecla.sudoku.models;
+using usantatecla.sudoku.controllers.loaders;
 
 namespace usantatecla.sudoku.controllers
 {
@@ -17,8 +18,8 @@ namespace usantatecla.sudoku.controllers
         [Test]
         public void Given_StartController_WhenNotStartYet_ThenBoardHasNullSquares()
         {
-            var actual = _board.GetSquares()[0][0];
-            Assert.IsNull(actual);
+            var expected = new object[] { null, null, null, null, null, null, null, null, null };
+            Assert.AreEqual(expected, _board.GetRow(0));
         }
 
     }

@@ -16,5 +16,4 @@ namespace usantatecla.sudoku.models
         public abstract bool CanAssign();
         public abstract bool IsEmpty();
 	}
-
 }

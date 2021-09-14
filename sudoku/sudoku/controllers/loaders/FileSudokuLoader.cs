@@ -4,7 +4,7 @@ using System.Linq;
 using System.Collections.Generic;
 using usantatecla.sudoku.models;
 
-namespace usantatecla.sudoku.controllers
+namespace usantatecla.sudoku.controllers.loaders
 {
     public class FileSudokuLoader : ISudokuLoader
     {
@@ -27,7 +27,7 @@ namespace usantatecla.sudoku.controllers
         private string ReadRandomTemplate()
         {
             var templates = ReadAllTemplates();
-            var randomLine = _generator.Next(templates.Count());
+            var randomLine = this._generator.Next(templates.Count());
             return templates[randomLine];
         }
 
@@ -53,19 +53,5 @@ namespace usantatecla.sudoku.controllers
         }
     }
 
-    public class LevelGenerator : IValueGenerator{
-        private Board _board;
-        public LevelGenerator(Board board){
-            this._board = board;
-        }
-
-        public virtual int Next(int max){
-            int nextValue = this._board._level;
-            if(nextValue < max){
-                return nextValue;
-            }
-            this._board._level = 0;
-            return 0;
-        }
-    }
+    
 }

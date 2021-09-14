@@ -13,6 +13,5 @@ namespace usantatecla.sudoku.models
             this.Column = column;
         }
 
-
 	}
 }

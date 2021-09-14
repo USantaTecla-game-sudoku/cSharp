@@ -1,6 +1,6 @@
 using System;
 
-namespace usantatecla.sudoku.controllers
+namespace usantatecla.sudoku.controllers.loaders
 {
     public interface IValueGenerator
     {

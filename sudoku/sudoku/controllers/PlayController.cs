@@ -8,12 +8,12 @@ namespace usantatecla.sudoku.controllers
 
         public PlayController(Board board) : base(board) { }
 
-        public void Assign(Assignment assignment) => _board.Assign(assignment);
+        public void Assign(Assignment assignment) => this._board.Assign(assignment);
 
-        public AssignmentResult CanAssign(Assignment assignment) => _board.CanAssign(assignment);
+        public AssignmentResult CanAssign(Assignment assignment) => this._board.CanAssign(assignment);
 
-        public bool HasSudoku() => _board.HasSudoku();
+        public bool HasSudoku() => this._board.HasSudoku();
 
-        public Board GetBoard() => _board;
+        public Board GetBoard() => this._board;
     }
 }

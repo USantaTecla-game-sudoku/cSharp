@@ -9,7 +9,11 @@ namespace usantatecla.sudoku.models {
         [SetUp]
         public void Setup()
         {
-            this._squareCollection = new SquareCollection(new Square[] { new HintSquare(Number.ONE), new PlayableSquare() });
+            this._squareCollection = new SquareCollection(
+                new Square[] { 
+                    new HintSquare(Number.ONE), 
+                    new PlayableSquare() }
+                );
         }
 
         [Test]

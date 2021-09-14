@@ -7,23 +7,18 @@ namespace usantatecla.sudoku.models
     {
         public readonly static int SIZE = 9;
         public readonly static int SIZE_BOX = SIZE / 3;
-        public readonly static string EMPTY_NUMBER_LOAD = ".";
-        public readonly static string EMPTY_NUMBER_ASSIGN = " ";
+        public int Level { get; set; }
 
         private readonly Square[][] _squares;
 
-        public int _level {
-            get;
-            set;
-        }
 
         public Board()
         {
-            this._level = 0;
+            this.Level = 0;
             this._squares = new Square[SIZE][];
             for (int i = 0; i < SIZE; i++)
             {
-                _squares[i] = new Square[SIZE];
+                this._squares[i] = new Square[SIZE];
             }
         }
 
@@ -37,9 +32,10 @@ namespace usantatecla.sudoku.models
                 for (int col = 0; col < SIZE; col++)
                 {
                     var value = sudoku.Substring(col + row * SIZE, 1);
-                    _squares[SIZE - 1 - row][col] = (value == EMPTY_NUMBER_LOAD)
+                    var number = value.ToNumber();
+                    this._squares[SIZE - 1 - row][col] = (number == Number.EMPTY)
                         ? new PlayableSquare()
-                        : new HintSquare(value.ToNumber());
+                        : new HintSquare(number);
                 }
             }
         }
@@ -65,10 +61,7 @@ namespace usantatecla.sudoku.models
                 return AssignmentResult.NUMBER_ALREADY_EXISTS_IN_BOX;
 
             return AssignmentResult.SUCCESS;
-
         }
-
-        public virtual Square[][] GetSquares() => this._squares;
 
         public virtual bool HasSudoku()
         {
@@ -85,10 +78,12 @@ namespace usantatecla.sudoku.models
 
             return true;
         }
+        
+        public Square[] GetRow(int row) => this._squares[row];
 
         private SquareCollection GetRow(Assignment assignment)
         {
-            return new SquareCollection(this._squares[assignment.Coordinate.Row]);
+            return new SquareCollection(this.GetRow(assignment.Coordinate.Row));
         }
 
         private SquareCollection GetColumn(Assignment assignment)
@@ -120,13 +115,17 @@ namespace usantatecla.sudoku.models
 
         private Square GetSquare(Assignment assignment)
         {
-            return this.GetSquare(assignment.Coordinate);
+            return this._squares[assignment.Coordinate.Row][assignment.Coordinate.Column];
         }
 
-        public Square GetSquare(Coordinate coordinate)
-        {
-            return this._squares[coordinate.Row][coordinate.Column];
+        public bool HasNumber(Coordinate coordinate, Number number) { 
+            var square = this._squares[coordinate.Row][coordinate.Column];
+            return square.HasNumber(number);
+        }
+
+        public Number GetNumber(Coordinate coordinate) { 
+            var square = this._squares[coordinate.Row][coordinate.Column];
+            return square.Number;
         }
     }
-
 }

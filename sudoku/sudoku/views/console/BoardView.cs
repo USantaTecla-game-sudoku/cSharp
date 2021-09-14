@@ -5,21 +5,21 @@ using usantatecla.utils;
 namespace usantatecla.sudoku.views.console
 {
     public class BoardView : ConsoleView {
-        private readonly Square[][] _squares;
-        private readonly int _boxDimension;
+
+        private static readonly int BOX_DIMENSION = (int)Math.Sqrt(Board.SIZE);
+        private readonly Board _board;
 
         public BoardView(Board board) {
-            this._squares = board.GetSquares();
-            this._boxDimension = (int)Math.Sqrt(Board.SIZE);
+            this._board = board;
         }
 
         public void Display() {
 
             base._colorConsole.WriteLine(Line.FIRST.ToString());
 
-            for(int row = Board.SIZE - 1 ; row >= 0 ; row--){
-
-                new RowView(row+1, this._squares[row]).Display();
+            for(int row = Board.SIZE - 1 ; row >= 0 ; row--)
+            {
+                new RowView(row+1, this._board.GetRow(row)).Display();
                 if(HaveToCloseRowBoard(row)){
                     var line = HaveToCloseTheBox(row)
                         ? Line.DOUBLE
@@ -33,7 +33,6 @@ namespace usantatecla.sudoku.views.console
 
         private bool HaveToCloseRowBoard(int row) => row > 0;
 
-        private bool HaveToCloseTheBox(int row) => row % this._boxDimension == 0;
-
+        private bool HaveToCloseTheBox(int row) => row % BOX_DIMENSION == 0;
     }
 }

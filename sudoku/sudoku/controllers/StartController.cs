@@ -1,4 +1,5 @@
 using usantatecla.sudoku.models;
+using usantatecla.sudoku.controllers.loaders;
 
 namespace usantatecla.sudoku.controllers
 {
@@ -10,11 +11,11 @@ namespace usantatecla.sudoku.controllers
 
         public StartController(Board board, ISudokuLoader sudokuLoader) : base(board)
         {
-            _sudokuLoader = sudokuLoader;
+            this._sudokuLoader = sudokuLoader;
         }
 
         public void Start() {
-            var sudokuTemplate = _sudokuLoader.Load();
+            var sudokuTemplate = this._sudokuLoader.Load();
             _board.Load(sudokuTemplate);
         }
 

@@ -8,7 +8,7 @@ namespace usantatecla.sudoku.models
 {
 	public class Number : Enumeration
 	{
-		public static Number EMPTY = new Number(0, " ");
+		public static Number EMPTY = new Number(0, ".");
 		public static Number ONE = new Number(1, "1");
 		public static Number TWO = new Number(2, "2");
 		public static Number THREE = new Number(3, "3");
@@ -21,13 +21,11 @@ namespace usantatecla.sudoku.models
 		public Number(int id, string value) : base(id, value){}
 	}
 
-
     public static class NumberExtensions
     {
-
-        public static Number ToNumber(this string value) => (value == Board.EMPTY_NUMBER_ASSIGN || value == Board.EMPTY_NUMBER_LOAD || value == string.Empty)
+        public static Number ToNumber(this string value) => 
+			(value == Number.EMPTY.ToString())
                 ? Number.EMPTY
                 : Enumeration.GetByValue<Number>(value);
-
     }
 }

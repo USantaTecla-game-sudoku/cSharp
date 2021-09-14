@@ -10,5 +10,4 @@ namespace usantatecla.sudoku.models
 		public override bool IsEmpty() => false;
 	}
 
-
 }
